@@ -2,12 +2,12 @@
 
 <div class="card">
     <div class="row">
-        <h2 class="title col-4">工事情報管理</h2>
-        <form class="col-5">
-            <div class="row">
-                <button type="button" class="btn btn-outline-dark">#タグ検索</button>
-                <input type="text" class="form-control" name="search">
-            </div>
+        <div class="col-4">
+            <h2 class="title">工事情報管理</h2>
+        </div>
+        <form style="display:flex; align-items: center" class="col-8">
+            <input type="text" value="{{request("search")}}" class="form-control" name="search" style="width:70%; height: 35px;">
+            <button type="submit" class="btn btn-outline-dark" style=" width:100px; height: 35px;">#タグ検索</button>
         </form>
     </div>
     <div class="create">
@@ -19,6 +19,7 @@
         <table class="table">
             <thead>
             <tr>
+                <th scope="col">＃タグ</th>
                 <th scope="col">工事場所</th>
                 <th scope="col">営業所</th>
                 <th scope="col">工事内容</th>
@@ -30,6 +31,7 @@
             <tbody>
             @foreach($constructs as $construct)
                 <tr>
+                    <td>{{$construct->hashtag}}</td>
                     <td>{{$construct->location}}</td>
                     <td>{{$construct->office}}</td>
                     <td>{{$construct->detail}}</td>

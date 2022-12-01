@@ -21,7 +21,6 @@ Route::get("/construct/edit/{id}", "ConstructorController@edit")->name("construc
 Route::post("/construct/update", "ConstructorController@update")->name("construct.update");
 Route::post("/construct/delete", "ConstructorController@delete")->name("construct.delete");
 
-
 Route::get("/checklist", "ChecklistController@index")->name('checklist');
 Route::get("/checklist/create", "ChecklistController@create")->name("checklist.create");
 Route::post("/checklist/store", "ChecklistController@store")->name("checklist.store");

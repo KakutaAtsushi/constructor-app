@@ -9,21 +9,17 @@ class ConstructorController extends Controller
 {
     public function index()
     {
-        $constructs = Constructor::get();
+        if ($search_word = request("search")) {
+            $constructs = Constructor::where("hashtag", "LIKE", "%" . $search_word . "%")->get();
+        } else {
+            $constructs = Constructor::get();
+        }
         return view("construct.index", compact("constructs"));
     }
 
     public function create()
     {
-        $offices = [
-            "岐南営業所",
-            "柿ヶ瀬営業所",
-            "岐阜西営業所",
-            "高富営業所",
-            "美濃営業所",
-            "関営業所",
-            "各務原営業所",
-        ];
+        $offices = config("env");
         return view("construct.create", compact("offices"));
     }
 
