@@ -4,6 +4,15 @@
     document.addEventListener('DOMContentLoaded', function () {
         let calendarEl = document.getElementById('calendar');
         let calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridDay,listMonth'
+            },
+            navLinks: true,
+            businessHours: true,
+            editable: true,
+            locale: 'ja',
             initialView: 'dayGridMonth',
             events: {!!$event_data!!},
             eventClick: function (info) {
@@ -13,7 +22,6 @@
                 }
             }
         });
-
         calendar.render();
     });
 </script>

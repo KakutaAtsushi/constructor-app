@@ -4,17 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Constructor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 
 class ConstructorController extends Controller
 {
     public function index()
     {
+        $offices = config("env");
         if ($search_word = request("search")) {
-            $constructs = Constructor::where("hashtag", "LIKE", "%" . $search_word . "%")->get();
+            $constructs = Constructor::where("hashtag", "LIKE", "%" . $search_word . "%")->orwhere("office","LIKE", "%" . $search_word. "%")->get();
         } else {
             $constructs = Constructor::get();
         }
-        return view("construct.index", compact("constructs"));
+        return view("construct.index", compact("constructs", "offices"));
     }
 
     public function create()
@@ -27,7 +29,8 @@ class ConstructorController extends Controller
     {
         $form_items = $request->all();
         $office_name = $this->processing_office_name($form_items);
-        Constructor::create(["location" => $form_items["location"], "hashtag" => $form_items["hashtag"], "office" => $office_name, "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" => $form_items["end"]]);
+        $route_name = $this->processing_route_name($form_items);
+        Constructor::create(["location" => $form_items["location"], "hashtag" => $form_items["hashtag"],"editor" => $form_items["editor"],"business_name" => $form_items["business_name"],"route" => $route_name,"real_work_time" => $form_items["real_work"],"bus_station" =>$form_items["bus_station"],"bus_relocation_flag" => $form_items["relocation_bus"] ?? 0,"remarks" => $form_items["remarks"] ,"office" => $office_name, "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" => $form_items["end"]]);
         return redirect("/construct");
     }
 
@@ -62,6 +65,16 @@ class ConstructorController extends Controller
             }
         }
         return substr($office_name, 0, -1);
+    }
+    private function processing_route_name($form_items)
+    {
+        $route_name = "";
+        foreach ($form_items as $key => $data) {
+            if (strpos($key, "item") !== false) {
+                $route_name .= $data . ",";
+            }
+        }
+        return substr($route_name, 0, -1);
     }
 
 }

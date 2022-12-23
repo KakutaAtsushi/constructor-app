@@ -5,9 +5,18 @@
         <div class="col-4">
             <h2 class="title">工事情報管理</h2>
         </div>
-        <form style="display:flex; align-items: center" class="col-8">
-            <input type="text" value="{{request("search")}}" class="form-control" name="search" style="width:70%; height: 35px;">
-            <button type="submit" class="btn btn-outline-dark" style=" width:100px; height: 35px;">#タグ検索</button>
+        <form style="display:flex; align-items: center" class="col-4">
+            <select class="form-select" aria-label="Default select example" name="search" style="width:70%; height: 35px;">
+                <option value="" selected>選択してください</option>
+                @foreach($offices as $office)
+                    <option id="{{$office}}" value="{{$office}}">{{$office}}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;">#営業所検索</button>
+        </form>
+        <form style="display:flex; align-items: center" class="col-4">
+            <input type="text" value="{{old("search")}}" class="form-control" name="search" style="width:70%; height: 35px;">
+            <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;margin-right: 15px;">#タグ検索</button>
         </form>
     </div>
     <div class="create">
@@ -45,4 +54,5 @@
     </div>
 </div>
 @include("template.footer")
+<script src="{{asset("js/selected.js")}}"></script>
 
