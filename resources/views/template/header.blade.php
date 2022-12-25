@@ -15,13 +15,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route("construct")}}">工事情報管理</a>
+                        <a class="nav-link active" aria-current="page" href="/public/construct">工事情報管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{route("checklist")}}">チェックリスト管理</a>
+                        <a class="nav-link active" href="/public/checklist">チェックリスト管理</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{route("calendar")}}" tabindex="-1" >カレンダー</a>
+                        <a class="nav-link active" href="/public/calendar" tabindex="-1" >カレンダー</a>
                     </li>
                 </ul>
             </div>
