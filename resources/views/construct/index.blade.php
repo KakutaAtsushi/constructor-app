@@ -34,7 +34,7 @@
                 <th scope="col">工事内容</th>
                 <th scope="col">工事開始日</th>
                 <th scope="col">工事終了日</th>
-                <th scope="col">GoogleMapで見る</th>
+                <th scope="col">位置を確認する</th>
             </tr>
             </thead>
             <tbody>
@@ -46,7 +46,7 @@
                     <td>{{$construct->detail}}</td>
                     <td>{{$construct->started_at}}</td>
                     <td>{{$construct->ended_at}}</td>
-                    <td><a href="/construct/edit/{{$construct->id}}">GoogleMap / 編集</a></td>
+                    <td><a href="/public/construct/edit/{{$construct->id}}">詳細確認</a></td>
                 </tr>
             @endforeach
             </tbody>

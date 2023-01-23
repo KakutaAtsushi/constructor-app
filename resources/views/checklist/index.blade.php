@@ -18,7 +18,7 @@
                         @foreach($items[$parent_key] as $key => $item)
                             <p class="card-text">項目{{$key + 1}}: {{$item}}</p>
                         @endforeach
-                        <a href="/checklist/edit/{{$data->id}}">
+                        <a href="/public/checklist/edit/{{$data->id}}">
                             <button type="button" class="btn btn-success btn-lg">編集</button>
                         </a>
                     </div>

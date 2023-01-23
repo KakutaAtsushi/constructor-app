@@ -1,7 +1,7 @@
 @include("template.header")
 <div class="card">
     <div class="row">
-        <h2 class="title col-4">工事情報登録</h2>
+        <h2 class="title col-4">路線障害情報登録</h2>
     </div>
     <form method="POST" action="{{route("construct.store")}}" style="padding:30px">
         @csrf
@@ -9,25 +9,25 @@
             <label for="business_name">事業者名</label>
             <input type="text" class="form-control" id="business_name" value="{{old("business_name")}}"
                    aria-describedby="construct-business_name"
-                   placeholder="入力例：株式会社テスト" name="business_name">
+                   placeholder="入力例：株式会社テスト" name="business_name" required>
         </div>
         <div class="form-group m-3">
             <label for="editor">編集者名</label>
             <input type="text" class="form-control" id="editor" value="{{old("editor")}}"
                    aria-describedby="construct-editor"
-                   placeholder="入力例：山田　タロウ" name="editor">
+                   placeholder="入力例：山田　タロウ" name="editor" required>
         </div>
 
         <div class="form-group m-3">
-            <label for="location">工事場所</label>
+            <label for="location">影響発生場所</label>
             <input type="text" class="form-control" id="location" value="{{old("location")}}"
                    aria-describedby="construct-location"
-                   placeholder="入力例：大阪府東大阪市島之内４丁目３８－５" name="location">
+                   placeholder="入力例：大阪府東大阪市島之内４丁目３８－５" name="location" required>
         </div>
         <div class="form-group m-3">
-            <label for="exampleInputPassword1">工事内容</label>
+            <label for="exampleInputPassword1">障害内容</label>
             <select class="form-select" aria-label="Default select example" name="detail">
-                <option selected>選択してください</option>
+                <option selected value="無し">選択してください</option>
                 <option value="通行止め">通行止め</option>
                 <option value="片側交互通行">片側交互通行</option>
                 <option value="車線減少">車線減少</option>
@@ -40,7 +40,7 @@
             <label for="route">路線</label>
             <input type="text" class="form-control items" id="item-1" value="{{old("item-1")}}"
                    aria-describedby="construct-route"
-                   placeholder="入力例：○○線" name="item-1">
+                   placeholder="入力例：○○線" name="item-1" required>
         </div>
         <div class="form-group m-3" style="display: flex; justify-content: flex-end;">
             <button type="button" class="btn btn-outline-secondary" onclick="incrementItem('construct')">+ 路線の追加</button>
@@ -50,7 +50,7 @@
             <label for="bus_station">最寄りバス停</label>
             <input type="text" class="form-control" id="bus_station" value="{{old("bus_station")}}"
                    aria-describedby="construct-bus_station"
-                   placeholder="入力例：枚方駅" name="bus_station">
+                   placeholder="入力例：枚方駅" name="bus_station" required>
         </div>
         <div class="form-group m-3">
             <div class="form-check">
@@ -87,7 +87,7 @@
             <div class="col">
                 <label for="started_at">工事開始期間</label>
                 <input type="datetime-local" class="form-control" id="started_at" value="{{old("start")}}"
-                       aria-describedby="construct-start" name="start">
+                       aria-describedby="construct-start" name="start" required>
             </div>
             <div class="col">
                 <label for="ended_at">工事終了期間</label><label style="color:red;float: right;">※不明の場合は入力無し</label>
@@ -98,7 +98,7 @@
                 <input type="hidden" id="render_flag" value="false">
                 <label for="ended_at">実質作業期間</label>
                 <select class="form-select" id="real_work" name="real_work" aria-label="Default select example">
-                    <option selected>選択してください</option>
+                    <option value="" selected>選択してください</option>
                 </select>
             </div>
         </div>

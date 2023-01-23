@@ -2,19 +2,10 @@
 
 <div class="card mb-3">
     <div class="row">
-        <h2 class="title col-4">@if($edit_mode)GoogleMapで見る（編集中） @else GoogleMapで見る@endif</h2>
+        <h2 class="title col-4">@if($edit_mode)工事情報編集（編集中） @else 工事情報編集@endif</h2>
     </div>
     <form method="POST" action="{{route("construct.update")}}">
         @csrf
-        <div class="form-group iframe">
-            <iframe src="https://www.google.com/maps?output=embed&q={{$construct_data->location}}&z=15"
-                    width="1000"
-                    height="650"
-                    frameborder="0"
-                    style="border:0"
-                    allowfullscreen>
-            </iframe>
-        </div>
         <input type="hidden" value="{{$construct_data->id}}" name="construct_id">
         <div class="form-group m-3">
             <label for="location">工事場所</label>
@@ -60,13 +51,27 @@
         @if(!empty($construct_data->real_work_time))
             <div class="form-group m-3">
                 <input type="text" class="form-control" id="real_work_time" value="内{{$construct_data->real_work_time}}日"
-                       aria-describedby="construct-real_work_time" name="real_work_time" @if($edit_mode) @else readonly @endif>
+                       aria-describedby="construct-real_work_time" name="real_work" @if($edit_mode) @else readonly @endif>
+            </div>
+@else
+  <div class="form-group m-3">
+                <input type="text" class="form-control" id="real_work_time" value="内0日"
+                       aria-describedby="construct-real_work_time" name="real_work" @if($edit_mode) @else readonly @endif>
             </div>
         @endif
         <div class="form-group m-3">
             <label for="ended_at">工事終了日</label>
             <input type="text" class="form-control" id="ended_at" value="{{$construct_data->ended_at}}"
                    aria-describedby="construct-ended_at" name="ended_at" @if($edit_mode) @else readonly @endif>
+        </div>
+        <div class="form-group iframe">
+            <iframe src="https://www.google.com/maps?output=embed&q={{$construct_data->location}}&z=15"
+                    width="1000"
+                    height="650"
+                    frameborder="0"
+                    style="border:0"
+                    allowfullscreen>
+            </iframe>
         </div>
         @if($edit_mode)
             <div class="form-group m-3" style="text-align:right; margin-right: 40px; margin-top: 30px;">
@@ -92,6 +97,6 @@
 
 <script>
     const editButton = id => {
-        document.location.href = `/construct/edit/${id}?edit_mode=true`
+        document.location.href = `/public/construct/edit/${id}?edit_mode=true`
     }
 </script>
