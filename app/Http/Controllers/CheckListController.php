@@ -55,7 +55,7 @@ class CheckListController extends Controller
         }
         $item = substr($item, 0, -1);
         Checklist::where("id", $id)->update(["title" => $request->input("title"), "item" => $item]);
-        return redirect("/checklist/edit/{$id}");
+        return redirect("/checklist");
     }
 
     public function delete(Request $request)

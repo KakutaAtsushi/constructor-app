@@ -23,6 +23,7 @@ class CreateConstructsTable extends Migration
             $table->string("editor");
             $table->string("business_name");
             $table->string("route");
+            $table->tinyInteger("flag")->default(0);
             $table->string("bus_station");
             $table->tinyInteger("bus_relocation_flag")->default(0);
             $table->string("remarks")->nullable();

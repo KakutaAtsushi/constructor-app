@@ -20,7 +20,7 @@ class CalendarController extends Controller
         $event_data = [];
         foreach ($construct_data as $key => $data) {
             $event_data[$key]["url"] = "construct/edit/".$data->id;
-            $event_data[$key]["title"] = $data->detail;
+            $event_data[$key]["title"] = "工事内容:".$data->detail."　工事場所:".$data->location;
             $event_data[$key]["start"] = $data->started_at;
             $event_data[$key]["end"] = $data->ended_at;
         }
