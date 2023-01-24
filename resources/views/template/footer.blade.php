@@ -16,12 +16,12 @@
             setInterval(() => {
                 axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
                     Push.create("営業所が登録されました", {
-                        body: response.data,
+                        body: response.data["office"],
                         tag: "myTag",
                         timeout: 10000,
                         vibrate: [100, 100, 100],
                         onClick: function (e) {
-                            console.log("onClick", e);
+                            window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
                         },
                         onShow: function (e) {
                             console.log("onShow", e);

@@ -89,11 +89,10 @@ class ConstructorController extends Controller
     public function api()
     {
         $construct = Constructor::where("flag", 0)->first();
-
         if (!empty($construct)) {
             Constructor::where("id", $construct->id)->update(["flag" => 1]);
         }
-        return $construct->office;
+        return $construct;
     }
 
 }

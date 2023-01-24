@@ -68,7 +68,6 @@
             <iframe src="https://www.google.com/maps?output=embed&q={{$construct_data->location}}&z=15"
                     width="1000"
                     height="650"
-                    frameborder="0"
                     style="border:0"
                     allowfullscreen>
             </iframe>
