@@ -17,7 +17,6 @@
                     Push.close('myTag');
                     new Promise((resolve) => {
                         axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
-                            console.debug(typeof response.data)
                             if (response.data !== false) {
                                 Push.create("工事の三日前になりました", {
                                     body: response.data["location"],
@@ -29,6 +28,8 @@
                                     },
                                 })
                                 Push.close('test');
+                                resolve();
+                            }else{
                                 resolve();
                             }
                         }).catch(error => {
