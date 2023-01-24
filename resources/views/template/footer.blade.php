@@ -17,51 +17,56 @@
                     Push.close('myTag');
                     new Promise((resolve) => {
                         axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
-                            Push.create("工事の三日前になりました", {
-                                body: response.data["location"],
-                                tag: "test",
-                                timeout: 7000,
-                                vibrate: [100, 100, 100],
-                                onClick: function (e) {
-                                    window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
-                                },
-                                onShow: function (e) {
-                                    console.log("onShow", e);
-                                },
-                                onClose: function (e) {
-                                    console.log("onClose", e);
-                                },
-                                onError: function (e) {
-                                    console.log("onError", e);
-                                }
-                            })
-                            Push.close('test');
-                            resolve();
+                            if (response.data != null) {
+                                Push.create("工事の三日前になりました", {
+                                    body: response.data["location"],
+                                    tag: "test",
+                                    timeout: 7000,
+                                    vibrate: [100, 100, 100],
+                                    onClick: function (e) {
+                                        window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
+                                    },
+                                    onShow: function (e) {
+                                        console.log("onShow", e);
+                                    },
+                                    onClose: function (e) {
+                                        console.log("onClose", e);
+                                    },
+                                    onError: function (e) {
+                                        console.log("onError", e);
+                                    }
+                                })
+                                Push.close('test');
+                                resolve();
+                            }
                         }).catch(error => {
                             console.log(error);
+                            resolve();
                         })
                     }).then(() => {
                         axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
-                            Push.close('test');
-                            Push.create("営業所が登録されました", {
-                                body: response.data["office"],
-                                tag: "myTag",
-                                timeout: 7000,
-                                vibrate: [100, 100, 100],
-                                onClick: function (e) {
-                                    window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
-                                },
-                                onShow: function (e) {
-                                    console.log("onShow", e);
-                                },
-                                onClose: function (e) {
-                                    console.log("onClose", e);
-                                },
-                                onError: function (e) {
-                                    console.log("onError", e);
-                                }
-                            });
-                            Push.close('myTag');
+                            if (response.data != null) {
+                                Push.close('test');
+                                Push.create("営業所が登録されました", {
+                                    body: response.data["office"],
+                                    tag: "myTag",
+                                    timeout: 7000,
+                                    vibrate: [100, 100, 100],
+                                    onClick: function (e) {
+                                        window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
+                                    },
+                                    onShow: function (e) {
+                                        console.log("onShow", e);
+                                    },
+                                    onClose: function (e) {
+                                        console.log("onClose", e);
+                                    },
+                                    onError: function (e) {
+                                        console.log("onError", e);
+                                    }
+                                });
+                                Push.close('myTag');
+                            }
                         }).catch(error => {
                             console.log(error);
                         });
