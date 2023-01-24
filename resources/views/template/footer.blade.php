@@ -27,15 +27,6 @@
                                     onClick: function (e) {
                                         window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
                                     },
-                                    onShow: function (e) {
-                                        console.log("onShow", e);
-                                    },
-                                    onClose: function (e) {
-                                        console.log("onClose", e);
-                                    },
-                                    onError: function (e) {
-                                        console.log("onError", e);
-                                    }
                                 })
                                 Push.close('test');
                                 resolve();
@@ -56,15 +47,6 @@
                                     onClick: function (e) {
                                         window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
                                     },
-                                    onShow: function (e) {
-                                        console.log("onShow", e);
-                                    },
-                                    onClose: function (e) {
-                                        console.log("onClose", e);
-                                    },
-                                    onError: function (e) {
-                                        console.log("onError", e);
-                                    }
                                 });
                                 Push.close('myTag');
                             }
