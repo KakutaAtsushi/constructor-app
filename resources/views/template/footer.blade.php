@@ -18,7 +18,7 @@
                     new Promise((resolve) => {
                         axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
                             console.debug(response.data)
-                            if (response.data != null) {
+                            if (response.data !== false) {
                                 Push.create("工事の三日前になりました", {
                                     body: response.data["location"],
                                     tag: "test",
@@ -37,7 +37,7 @@
                         })
                     }).then(() => {
                         axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
-                            if (response.data != null) {
+                            if (response.data !== false) {
                                 Push.close('test');
                                 Push.create("営業所が登録されました", {
                                     body: response.data["office"],
