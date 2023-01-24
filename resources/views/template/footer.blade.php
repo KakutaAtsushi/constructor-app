@@ -18,6 +18,7 @@
                     })
                     Push.close('test');
                 }
+                return null;
             }).catch(error => {
                 console.log(error);
             })
@@ -37,6 +38,7 @@
                 });
                 Push.close('myTag');
             }
+            return null;
         }).catch(error => {
             console.log(error);
         });
