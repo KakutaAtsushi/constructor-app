@@ -3,11 +3,11 @@
 <script src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
 <script>
-    construct_notify = async () => {
+    construct_notify = () => {
         Push.close('myTag');
-            axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
+            axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(async response => {
                 if (response.data !== false) {
-                    Push.create("工事の三日前になりました", {
+                    await Push.create("工事の三日前になりました", {
                         body: response.data["location"],
                         tag: "test",
                         timeout: 7000,
@@ -22,11 +22,11 @@
                 console.log(error);
             })
     }
-    office_notify = async () => {
-        axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
+    office_notify = () => {
+        axios.get('https://shyu-web.sakura.ne.jp/public/api').then(async response => {
             if (response.data !== false) {
                 Push.close('test');
-                Push.create("営業所が登録されました", {
+                await Push.create("営業所が登録されました", {
                     body: response.data["office"],
                     tag: "myTag",
                     timeout: 7000,
