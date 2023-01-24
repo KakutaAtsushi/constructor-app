@@ -32,32 +32,33 @@
                         onError: function (e) {
                             console.log("onError", e);
                         }
+                    }
+                    axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
+                        Push.create("営業所が登録されました", {
+                            body: response.data["office"],
+                            tag: "myTag",
+                            timeout: 10000,
+                            vibrate: [100, 100, 100],
+                            onClick: function (e) {
+                                window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
+                            },
+                            onShow: function (e) {
+                                console.log("onShow", e);
+                            },
+                            onClose: function (e) {
+                                console.log("onClose", e);
+                            },
+                            onError: function (e) {
+                                console.log("onError", e);
+                            }
+                        });
+                    }).catch(error => {
+                        console.log(error);
                     });
-                }
-                axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
-                    Push.create("営業所が登録されました", {
-                        body: response.data["office"],
-                        tag: "myTag",
-                        timeout: 10000,
-                        vibrate: [100, 100, 100],
-                        onClick: function (e) {
-                            window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
-                        },
-                        onShow: function (e) {
-                            console.log("onShow", e);
-                        },
-                        onClose: function (e) {
-                            console.log("onClose", e);
-                        },
-                        onError: function (e) {
-                            console.log("onError", e);
-                        }
-                    });
-                }).catch(error => {
-                    console.log(error);
-                });
-            }, 1000)
+                }, 1000)
+            }
         }
-    });
+    )
+        ;
 </script>
 </html>
