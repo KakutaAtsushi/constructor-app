@@ -104,6 +104,5 @@ class ConstructorController extends Controller
             Constructor::where("id", $construct->id)->update(["remind_flag" => 1]);
             return ["location" => $construct->location, "id" => $construct->id];
         }
-        return null;
     }
 }
