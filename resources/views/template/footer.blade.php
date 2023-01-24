@@ -15,7 +15,7 @@
         } else {
             setInterval(() => {
                 axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
-                    console.error(response.data)
+                    console.error(response.data["id"])
                     Push.create("営業所が登録されました", {
                         body: response.data["office"],
                         tag: "myTag",
