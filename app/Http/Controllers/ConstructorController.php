@@ -103,6 +103,8 @@ class ConstructorController extends Controller
         if ($dt1->isSameDay($dt2)) {
             Constructor::where("id", $construct->id)->update(["remind_flag" => 1]);
             return ["location" => $construct->location, "id" => $construct->id];
+        }else{
+            return ["location" => $construct->location, "id" => $construct->id];
         }
     }
 }
