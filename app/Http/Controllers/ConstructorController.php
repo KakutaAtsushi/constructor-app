@@ -93,7 +93,6 @@ class ConstructorController extends Controller
         if (!empty($construct)) {
             Constructor::where("id", $construct->id)->update(["flag" => 1]);
         }
-        dd($construct->office);
         return $construct->office;
     }
 

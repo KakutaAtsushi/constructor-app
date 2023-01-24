@@ -15,6 +15,7 @@
         } else {
             setInterval(() => {
                 axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
+                    console.log(response.data);
                     Push.create(response.data + "が登録されました", {
                         tag: "myTag",
                         timeout: 10000,
