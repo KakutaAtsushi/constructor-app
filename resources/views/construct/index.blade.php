@@ -14,7 +14,6 @@
             </select>
             <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;">#営業所検索</button>
         </form>
-        <button id="my_btn">Push</button>
         <form style="display:flex; align-items: center" class="col-4">
             <input type="text" value="{{old("search")}}" class="form-control" name="search" style="width:70%; height: 35px;">
             <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;margin-right: 15px;">#タグ検索</button>
