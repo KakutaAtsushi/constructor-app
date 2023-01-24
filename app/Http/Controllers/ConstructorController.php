@@ -91,8 +91,8 @@ class ConstructorController extends Controller
         $construct = Constructor::where("flag", 0)->first();
         if (!empty($construct)) {
             Constructor::where("id", $construct->id)->update(["flag" => 1]);
-            return ["id" => $construct->id, "office" => $construct->office];
         }
+        return ["id" => $construct->id, "office" => $construct->office];
     }
 
     public function remind()
@@ -102,7 +102,7 @@ class ConstructorController extends Controller
         $dt2 = new Carbon($construct->started_at);
         if ($dt1->isSameDay($dt2)) {
             Constructor::where("id", $construct->id)->update(["remind_flag" => 1]);
-            return ["location" => $construct->location, "id" => $construct->id];
         }
+        return ["location" => $construct->location, "id" => $construct->id];
     }
 }
