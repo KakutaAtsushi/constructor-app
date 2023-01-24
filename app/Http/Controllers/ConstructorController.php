@@ -107,6 +107,5 @@ class ConstructorController extends Controller
                 return ["location" => $data->location, "id" => $data->id];
             }
         }
-        return null;
     }
 }
