@@ -104,7 +104,7 @@ class ConstructorController extends Controller
             $dt2 = new Carbon($data->started_at);
             if ($dt1->isSameDay($dt2)) {
                 Constructor::where("id", $data->id)->update(["remind_flag" => 1]);
-                return $data;
+                return ["location" => $data->location, "id" => $data->id];
             }
         }
         return null;

@@ -16,7 +16,7 @@
             setInterval(() => {
                 axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
                     Push.create("工事の三日前になりました", {
-                        body: response.data["detail"],
+                        body: response.data["location"],
                         tag: "myTag",
                         timeout: 10000,
                         vibrate: [100, 100, 100],
