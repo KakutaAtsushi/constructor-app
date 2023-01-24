@@ -14,8 +14,8 @@
                 });
             } else {
                 setInterval(() => {
+                    Push.close('myTag');
                     axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
-                        Push.close('test');
                         Push.create("工事の三日前になりました", {
                             body: response.data["location"],
                             tag: "test",
@@ -34,11 +34,12 @@
                                 console.log("onError", e);
                             }
                         })
+                        Push.close('test');
                     }).catch(error => {
                         console.log(error);
                     });
                     axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
-                        Push.close('myTag');
+                        Push.close('test');
                         Push.create("営業所が登録されました", {
                             body: response.data["office"],
                             tag: "myTag",
@@ -57,6 +58,7 @@
                                 console.log("onError", e);
                             }
                         });
+                        Push.close('myTag');
                     }).catch(error => {
                         console.log(error);
                     });
