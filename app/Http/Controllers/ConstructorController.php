@@ -99,7 +99,6 @@ class ConstructorController extends Controller
     {
         $dt1 = Carbon::now()->addDays(3);
         $construct = Constructor::where("remind_flag", 0)->first();
-        dd($construct);
         foreach ($construct as $data) {
             $dt2 = new Carbon($data->started_at);
             if ($dt1->isSameDay($dt2)) {
