@@ -43,7 +43,7 @@
             console.log(error);
         });
     }
-    window.addEventListener('DOMContentLoaded', async () => {
+    window.addEventListener('DOMContentLoaded', () => {
             // 1. Permissionの確認
             if (!Push.Permission.has()) {
                 // 2. Permissionのリクエスト
