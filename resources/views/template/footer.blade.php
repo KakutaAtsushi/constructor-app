@@ -14,8 +14,27 @@
             });
         } else {
             setInterval(() => {
+                axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
+                    Push.create("工事の三日前になりました", {
+                        body: response.data["detail"],
+                        tag: "myTag",
+                        timeout: 10000,
+                        vibrate: [100, 100, 100],
+                        onClick: function (e) {
+                            window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
+                        },
+                        onShow: function (e) {
+                            console.log("onShow", e);
+                        },
+                        onClose: function (e) {
+                            console.log("onClose", e);
+                        },
+                        onError: function (e) {
+                            console.log("onError", e);
+                        }
+                    });
+                }
                 axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
-                    console.error(response.data["id"])
                     Push.create("営業所が登録されました", {
                         body: response.data["office"],
                         tag: "myTag",

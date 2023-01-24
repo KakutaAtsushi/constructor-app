@@ -21,5 +21,6 @@ Route::post("/checklist/delete", "CheckListController@delete")->name("checklist.
 Route::get("/calendar", "CalendarController@index")->name( 'calendar');
 
 Route::get("/api", "ConstructorController@api")->name('api');
+Route::get("/remind", "ConstructorController@remind")->name('remind');
 
 Auth::routes();

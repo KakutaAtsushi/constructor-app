@@ -15,5 +15,5 @@ class Constructor extends Model
     use HasFactory;
 
     protected $table = 'constructs';
-    protected $fillable = ["id", "location", "hashtag", "bus_station", "real_work_time", "editor", "business_name", "bus_relocation_flag", "remarks", "route", "relocation", "detail", "office", "started_at", "ended_at"];
+    protected $fillable = ["id","remind_flag", "location", "hashtag", "bus_station", "real_work_time", "editor", "business_name", "bus_relocation_flag", "remarks", "route", "relocation", "detail", "office", "started_at", "ended_at"];
 }
