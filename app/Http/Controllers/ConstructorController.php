@@ -91,9 +91,8 @@ class ConstructorController extends Controller
         $construct = Constructor::where("flag", 0)->first();
         if (!empty($construct)) {
             Constructor::where("id", $construct->id)->update(["flag" => 1]);
+            return ["id" => $construct->id, "office" => $construct->office];
         }
-
-        return ["id" => $construct->id, "office" => $construct->office];
     }
 
     public function remind()
