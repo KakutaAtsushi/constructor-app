@@ -4,17 +4,18 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/push.js/1.0.12/push.min.js"></script>
 <script>
     window.addEventListener('DOMContentLoaded', function () {
-            // 1. Permissionの確認
-            if (!Push.Permission.has()) {
-                // 2. Permissionのリクエスト
-                Push.Permission.request(() => {
-                    console.log("onGranted!!");
-                }, () => {
-                    console.log("onDenied!!");
-                });
-            } else {
-                setInterval(() => {
-                    Push.close('myTag');
+        // 1. Permissionの確認
+        if (!Push.Permission.has()) {
+            // 2. Permissionのリクエスト
+            Push.Permission.request(() => {
+                console.log("onGranted!!");
+            }, () => {
+                console.log("onDenied!!");
+            });
+        } else {
+            setInterval(() => {
+                Push.close('myTag');
+                new Promise((resolve) => {
                     axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
                         Push.create("工事の三日前になりました", {
                             body: response.data["location"],
@@ -35,9 +36,11 @@
                             }
                         })
                         Push.close('test');
+                        resolve();
                     }).catch(error => {
                         console.log(error);
-                    });
+                    })
+                }).then(() => {
                     axios.get('https://shyu-web.sakura.ne.jp/public/api').then(response => {
                         Push.close('test');
                         Push.create("営業所が登録されました", {
@@ -66,6 +69,5 @@
             }
         }
     )
-    ;
 </script>
 </html>
