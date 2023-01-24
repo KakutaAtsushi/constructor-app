@@ -17,8 +17,8 @@
                     axios.get('https://shyu-web.sakura.ne.jp/public/remind').then(response => {
                         Push.create("工事の三日前になりました", {
                             body: response.data["location"],
-                            tag: "myTag",
-                            timeout: 10000,
+                            tag: "test",
+                            timeout: 7000,
                             vibrate: [100, 100, 100],
                             onClick: function (e) {
                                 window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
@@ -40,7 +40,7 @@
                         Push.create("営業所が登録されました", {
                             body: response.data["office"],
                             tag: "myTag",
-                            timeout: 10000,
+                            timeout: 7000,
                             vibrate: [100, 100, 100],
                             onClick: function (e) {
                                 window.open(`https://shyu-web.sakura.ne.jp/public/construct/edit/${response.data["id"]}`);
