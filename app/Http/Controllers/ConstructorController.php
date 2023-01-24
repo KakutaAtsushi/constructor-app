@@ -100,7 +100,7 @@ class ConstructorController extends Controller
         $dt1 = Carbon::now()->addDays(3);
         $construct = Constructor::where("remind_flag", 0)->first();
         $dt2 = new Carbon($construct->started_at);
-        dd($construct);
+        dd($construct->id);
         if ($dt1->isSameDay($dt2)) {
             Constructor::where("id", $construct->id)->update(["remind_flag" => 1]);
             return ["location" => $construct->location, "id" => $construct->id];
