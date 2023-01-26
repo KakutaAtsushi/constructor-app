@@ -6,16 +6,23 @@
     <form method="POST" action="{{route("construct.store")}}" style="padding:30px">
         @csrf
         <div class="form-group m-3">
-            <label for="business_name">事業者名</label>
+            <label for="business_name">工事担当者</label>
             <input type="text" class="form-control" id="business_name" value="{{old("business_name")}}"
                    aria-describedby="construct-business_name"
                    placeholder="入力例：株式会社テスト" name="business_name" required>
         </div>
-        <div class="form-group m-3">
-            <label for="editor">編集者名</label>
-            <input type="text" class="form-control" id="editor" value="{{old("editor")}}"
-                   aria-describedby="construct-editor"
-                   placeholder="入力例：山田　タロウ" name="editor" required>
+        <div class="form-group m-3 row">
+            <label for="editor">情報登録者</label>
+            <div class="col">
+                <label for="department">部署</label>
+                <input type="text" class="form-control" id="department" value="{{old("department")}}"
+                       aria-describedby="construct-start" name="department" required>
+            </div>
+            <div class="col">
+                <label for="username">氏名</label>
+                <input type="text" class="form-control" id="username" value="{{old("username")}}"
+                       aria-describedby="construct-end" name="username">
+            </div>
         </div>
 
         <div class="form-group m-3">
@@ -58,13 +65,6 @@
                        id="relocation_bus">
                 <label class="form-check-label" for="relocation_bus">バス停の移設</label>
             </div>
-        </div>
-        <div class="form-group m-3">
-            <label for="hashtag">ハッシュタグ</label>
-            <input type="text" class="form-control" id="hashtag"
-                   value="{{!empty(old("hashtag")) ? old("hashtag") : "#"}}"
-                   aria-describedby="construct-hashtag"
-                   placeholder="#" name="hashtag">
         </div>
         <div class="form-group m-3">
             <label>営業所</label>

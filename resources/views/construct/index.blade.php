@@ -12,11 +12,7 @@
                     <option id="{{$office}}" value="{{$office}}">{{$office}}</option>
                 @endforeach
             </select>
-            <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;">#営業所検索</button>
-        </form>
-        <form style="display:flex; align-items: center" class="col-4">
-            <input type="text" value="{{old("search")}}" class="form-control" name="search" style="width:70%; height: 35px;">
-            <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;margin-right: 15px;">#タグ検索</button>
+            <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;">営業所検索</button>
         </form>
     </div>
     <div class="create">
@@ -28,7 +24,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">＃タグ</th>
                 <th scope="col">工事場所</th>
                 <th scope="col">営業所</th>
                 <th scope="col">工事内容</th>
@@ -40,7 +35,6 @@
             <tbody>
             @foreach($constructs as $construct)
                 <tr>
-                    <td>{{$construct->hashtag}}</td>
                     <td>{{$construct->location}}</td>
                     <td>{{$construct->office}}</td>
                     <td>{{$construct->detail}}</td>

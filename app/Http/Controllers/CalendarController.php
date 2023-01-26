@@ -4,9 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Constructor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CalendarController extends Controller
 {
+    public $office_dict;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->office_dict = [
+            "岐南営業所" => 1,
+            "柿ヶ瀬営業所" => 2,
+            "岐阜西営業所" => 3,
+            "高富営業所" => 4,
+            "美濃営業所" => 5,
+            "関営業所" => 6,
+            "各務原営業所" => 7,
+        ];
+    }
+
     public function index()
     {
         $calendar_bool = true;
@@ -16,11 +33,17 @@ class CalendarController extends Controller
 
     private function fix_event_data()
     {
-        $construct_data = Constructor::get();
+        $user_office_id = Auth::user()->office;
+        if ($user_office_id !== 0) {
+            $office_dict = array_flip($this->office_dict);
+            $construct_data = Constructor::where("office", "like", "%{$office_dict[$user_office_id]}%")->get();
+        } else {
+            $construct_data = Constructor::get();
+        }
         $event_data = [];
         foreach ($construct_data as $key => $data) {
-            $event_data[$key]["url"] = "construct/edit/".$data->id;
-            $event_data[$key]["title"] = "工事内容:".$data->detail."　工事場所:".$data->location;
+            $event_data[$key]["url"] = "construct/edit/" . $data->id;
+            $event_data[$key]["title"] = "工事内容:" . $data->detail . "　工事場所:" . $data->location;
             $event_data[$key]["start"] = $data->started_at;
             $event_data[$key]["end"] = $data->ended_at;
         }

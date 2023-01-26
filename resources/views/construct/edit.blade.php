@@ -12,13 +12,22 @@
             <input type="text" class="form-control" id="location" value="{{$construct_data->location}}"
                    aria-describedby="construct-location" name="location" @if($edit_mode) @else readonly @endif>
         </div>
-        <div class="form-group m-3">
-            <label for="editor">編集者</label>
-            <input type="text" class="form-control" id="editor" value="{{$construct_data->editor}}"
-                   aria-describedby="construct-editor" name="editor" @if($edit_mode) @else readonly @endif>
+        <div class="form-group m-3 row">
+            <label for="editor">情報登録者</label>
+            <div class="col">
+                <label for="department">部署</label>
+                <input type="text" class="form-control" id="department"
+                       value="{{$construct_data->department}}"
+                       aria-describedby="construct-start" name="department" @if($edit_mode) @else readonly @endif>
+            </div>
+            <div class="col">
+                <label for="username">氏名</label>
+                <input type="text" class="form-control" id="username" value="{{$construct_data->username}}"
+                       aria-describedby="construct-end" name="username" @if($edit_mode) @else readonly @endif>
+            </div>
         </div>
         <div class="form-group m-3">
-            <label for="business_name">事業者</label>
+            <label for="business_name">工事担当者</label>
             <input type="text" class="form-control" id="business_name" value="{{$construct_data->business_name}}"
                    aria-describedby="construct-editor" name="business_name" @if($edit_mode) @else readonly @endif>
         </div>
@@ -31,7 +40,8 @@
             <label for="route">最寄りバス停</label>
             <input type="text" class="form-control" id="bus_station" value="{{$construct_data->bus_station}}"
                    aria-describedby="construct-route" name="bus_station" @if($edit_mode) @else readonly @endif>
-            <label style="color:red; font-weight: bold">バス停の移設:</label>@if($construct_data->bus_relocation_flag === 1) 必要 @else 必要なし @endif
+            <label style="color:red; font-weight: bold">バス停の移設:</label>@if($construct_data->bus_relocation_flag === 1)
+                必要 @else 必要なし @endif
         </div>
         <div class="form-group m-3">
             <label for="office">営業所</label>
@@ -50,13 +60,16 @@
         </div>
         @if(!empty($construct_data->real_work_time))
             <div class="form-group m-3">
-                <input type="text" class="form-control" id="real_work_time" value="内{{$construct_data->real_work_time}}日"
-                       aria-describedby="construct-real_work_time" name="real_work" @if($edit_mode) @else readonly @endif>
+                <input type="text" class="form-control" id="real_work_time"
+                       value="内{{$construct_data->real_work_time}}日"
+                       aria-describedby="construct-real_work_time" name="real_work"
+                       @if($edit_mode) @else readonly @endif>
             </div>
-@else
-  <div class="form-group m-3">
+        @else
+            <div class="form-group m-3">
                 <input type="text" class="form-control" id="real_work_time" value="内0日"
-                       aria-describedby="construct-real_work_time" name="real_work" @if($edit_mode) @else readonly @endif>
+                       aria-describedby="construct-real_work_time" name="real_work"
+                       @if($edit_mode) @else readonly @endif>
             </div>
         @endif
         <div class="form-group m-3">
@@ -73,7 +86,6 @@
             </iframe>
 
         </div>
-
 
 
         @if($edit_mode)

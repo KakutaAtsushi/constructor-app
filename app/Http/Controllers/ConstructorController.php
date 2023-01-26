@@ -5,19 +5,40 @@ namespace App\Http\Controllers;
 use App\Models\Constructor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Berkayk\OneSignal\OneSignalFacade as OneSignal;
+use Illuminate\Support\Facades\Auth;
 
 class ConstructorController extends Controller
 {
+    public $office_dict;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->office_dict = [
+            "岐南営業所" => 1,
+            "柿ヶ瀬営業所" => 2,
+            "岐阜西営業所" => 3,
+            "高富営業所" => 4,
+            "美濃営業所" => 5,
+            "関営業所" => 6,
+            "各務原営業所" => 7,
+        ];
+    }
+
     public function index()
     {
-
+        $user_office_id = Auth::user()->office;
         $offices = config("env");
         if ($search_word = request("search")) {
-            $constructs = Constructor::where("hashtag", "LIKE", "%" . $search_word . "%")->orwhere("office", "LIKE", "%" . $search_word . "%")->get();
+            $constructs = Constructor::where("office", "LIKE", "%" . $search_word . "%")->get();
         } else {
             $constructs = Constructor::get();
+            if ($user_office_id !== 0) {
+                $office_dict = array_flip($this->office_dict);
+                $constructs = Constructor::where("office","like", "%{$office_dict[$user_office_id]}%")->get();
+                return view("construct.index", compact("constructs", "offices"));
+            }
         }
         return view("construct.index", compact("constructs", "offices"));
     }
@@ -41,7 +62,7 @@ class ConstructorController extends Controller
             $this->send_target($fields, $form_items["location"] . "が作成されました。");
         }
         $route_name = $this->processing_route_name($form_items);
-        Constructor::create(["location" => $form_items["location"], "hashtag" => $form_items["hashtag"], "editor" => $form_items["editor"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
+        Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
         => $form_items["bus_station"], "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
             $form_items["end"]]);
         return redirect("/construct");
@@ -136,37 +157,37 @@ class ConstructorController extends Controller
 
     public function send_target($fields, $message)
     {
-        foreach($fields as $field){
-            OneSignal::sendNotificationUsingTags($message,
-                array(
-                    $field,
-                ),
-                $url = null,
-                $data = null,
-                $buttons = null,
-                $schedule = null
-            );
-        }
+//        foreach ($fields as $field) {
+//            OneSignal::sendNotificationUsingTags($message,
+//                array(
+//                    $field,
+//                ),
+//                $url = null,
+//                $data = null,
+//                $buttons = null,
+//                $schedule = null
+//            );
+//        }
     }
 
-//
+    private function explode_offices($offices): array
+    {
+        $office_ids = [];
+        $office_array = explode(",", $offices);
+        foreach ($office_array as $office) {
+            $office_ids[] = $this->office_dict[$office];
+        }
+        return $office_ids;
+    }
+
     public function create_fields($offices): array
     {
         $fields = [
             ["field" => "tag", "key" => "officeId", "relation" => "=", "value" => 0]
         ];
-        $office_dict = [
-            "岐南営業所" => 1,
-            "柿ヶ瀬営業所" => 2,
-            "岐阜西営業所" => 3,
-            "高富営業所" => 4,
-            "美濃営業所" => 5,
-            "関営業所" => 6,
-            "各務原営業所" => 7,
-        ];
         $office_array = explode(",", $offices);
         foreach ($office_array as $office) {
-            $fields[] = ["field" => "tag", "key" => "officeId", "relation" => "=", "value" => $office_dict[$office]];
+            $fields[] = ["field" => "tag", "key" => "officeId", "relation" => "=", "value" => $this->office_dict[$office]];
         }
         return $fields;
     }

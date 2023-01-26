@@ -17,10 +17,10 @@ class CreateConstructsTable extends Migration
             $table->id();
             $table->string("location");
             $table->string("office")->nullable();
-            $table->string("hashtag");
             $table->string("detail");
+            $table->string("username");
+            $table->string("department");
             $table->string("real_work_time")->nullable();
-            $table->string("editor");
             $table->string("business_name");
             $table->string("route");
             $table->tinyInteger("remind_flag")->default(0);
