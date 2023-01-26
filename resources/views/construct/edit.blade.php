@@ -71,7 +71,11 @@
                     style="border:0"
                     allowfullscreen>
             </iframe>
+
         </div>
+
+
+
         @if($edit_mode)
             <div class="form-group m-3" style="text-align:right; margin-right: 40px; margin-top: 30px;">
                 <button type="submit" class="btn btn-primary">更新する</button>

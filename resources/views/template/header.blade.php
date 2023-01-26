@@ -7,6 +7,19 @@
     @if(!empty($calendar_bool))
         @include("template.calendar_js")
     @endif
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function () {
+            OneSignal.init({
+                appId: "24588a5a-b0ac-482a-ad19-210988277326",
+                autoRegister: true,
+            });
+        });
+        @if(Auth::check())
+        OneSignal.push(['sendTag', 'officeId', {{Auth::user()->office}}, function(tagsSent) {}]);
+        @endif
+    </script>
 </head>
 <body>
 <div class="container">
