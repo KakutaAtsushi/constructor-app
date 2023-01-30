@@ -43,14 +43,15 @@
             </select>
         </div>
 
-        <div class="form-group m-3"  id="items">
+        <div class="form-group m-3" id="items">
             <label for="route">路線</label>
             <input type="text" class="form-control items" id="item-1" value="{{old("item-1")}}"
                    aria-describedby="construct-route"
                    placeholder="入力例：○○線" name="item-1" required>
         </div>
         <div class="form-group m-3" style="display: flex; justify-content: flex-end;">
-            <button type="button" class="btn btn-outline-secondary" onclick="incrementItem('construct')">+ 路線の追加</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="incrementItem('construct')">+ 路線の追加
+            </button>
         </div>
 
         <div class="form-group m-3">
@@ -60,10 +61,22 @@
                    placeholder="入力例：枚方駅" name="bus_station" required>
         </div>
         <div class="form-group m-3">
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="relocation_bus" value=""
-                       id="relocation_bus">
-                <label class="form-check-label" for="relocation_bus">バス停の移設</label>
+            <div class="form-check form-group">
+                <div class="checkbox-inline">
+                    <input type="checkbox" class="form-check-input" name="relocation_bus" value="1"
+                           id="relocation_bus">
+                    <label class="form-check-label" for="relocation_bus">バス停の移設</label>
+                </div>
+                <div class="checkbox-inline">
+                    <input type="checkbox" class="form-check-input" name="stopped_bus" value="1"
+                           id="stopped_bus">
+                    <label class="form-check-label" for="stopped_bus">バス停の休止</label>
+                </div>
+                <div class="checkbox-inline">
+                    <input type="checkbox" class="form-check-input" name="detour" value="1"
+                           id="detour">
+                    <label class="form-check-label" for="detour">迂回運転</label>
+                </div>
             </div>
         </div>
         <div class="form-group m-3">
@@ -100,6 +113,15 @@
                 <select class="form-select" id="real_work" name="real_work" aria-label="Default select example">
                     <option value="" selected>選択してください</option>
                 </select>
+            </div>
+            <div class="form-group iframe">
+                <iframe src="https://www.google.com/maps?output=embed&q=japan&z=15"
+                        width="1000"
+                        height="650"
+                        style="border:0"
+                        allowfullscreen>
+                </iframe>
+
             </div>
         </div>
         <div class="form-group" style="text-align:right; margin-right: 40px; margin-top: 30px;">

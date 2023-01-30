@@ -36,7 +36,7 @@ class ConstructorController extends Controller
             $constructs = Constructor::get();
             if ($user_office_id !== 0) {
                 $office_dict = array_flip($this->office_dict);
-                $constructs = Constructor::where("office","like", "%{$office_dict[$user_office_id]}%")->get();
+                $constructs = Constructor::where("office", "like", "%{$office_dict[$user_office_id]}%")->get();
                 return view("construct.index", compact("constructs", "offices"));
             }
         }
@@ -63,16 +63,18 @@ class ConstructorController extends Controller
         }
         $route_name = $this->processing_route_name($form_items);
         Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
-        => $form_items["bus_station"], "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
+        => $form_items["bus_station"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
             $form_items["end"]]);
         return redirect("/construct");
     }
 
     public function edit($id, Request $request)
     {
+        $offices = config("env");
         $construct_data = Constructor::find($id);
+        $construct_office_ids = $this->explode_offices($construct_data->office);
         $edit_mode = $request->query("edit_mode");
-        return view("construct.edit", compact("construct_data", "edit_mode"));
+        return view("construct.edit", compact("construct_data", "edit_mode", "offices", "construct_office_ids"));
     }
 
     public function update(Request $request)
@@ -80,17 +82,17 @@ class ConstructorController extends Controller
         $form_items = $request->all();
         $construct_id = $form_items["construct_id"];
         $fields = [];
-        if ($form_items["office"] != "無し") {
-            $fields = $this->create_fields($form_items["office"]);
+
+        $offices = $this->processing_office_name($form_items) === "" ? "無し" : $this->processing_office_name($form_items);
+        $exists_office = $this->is_exists_office(array_keys($form_items));
+
+        if ($exists_office) {
+            $fields = $this->create_fields($offices);
         }
         if ($fields != []) {
             $this->send_target($fields, $form_items["location"] . "が更新されました。");
         }
-        if (!empty($form_items["real_work"])) {
-            $real_work = explode("内", $form_items["real_work"])[1];
-            $real_work = explode("日", $real_work)[0];
-        }
-        Constructor::where("id", $construct_id)->update(["location" => $form_items["location"], "office" => $form_items["office"], "real_work_time" => $real_work ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
+        Constructor::where("id", $construct_id)->update(["location" => $form_items["location"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
     }
 
@@ -172,6 +174,9 @@ class ConstructorController extends Controller
 
     private function explode_offices($offices): array
     {
+        if ($offices === "無し") {
+            return [];
+        }
         $office_ids = [];
         $office_array = explode(",", $offices);
         foreach ($office_array as $office) {
@@ -190,5 +195,15 @@ class ConstructorController extends Controller
             $fields[] = ["field" => "tag", "key" => "officeId", "relation" => "=", "value" => $this->office_dict[$office]];
         }
         return $fields;
+    }
+
+    private function is_exists_office($form_items): bool
+    {
+        foreach ($form_items as $item) {
+            if (strpos($item, "office") !== false) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -30,6 +30,7 @@
                 <th scope="col">工事開始日</th>
                 <th scope="col">工事終了日</th>
                 <th scope="col">位置を確認する</th>
+                <th scope="col">備考</th>
             </tr>
             </thead>
             <tbody>
@@ -41,6 +42,7 @@
                     <td>{{$construct->started_at}}</td>
                     <td>{{$construct->ended_at}}</td>
                     <td><a href="/public/construct/edit/{{$construct->id}}">詳細確認</a></td>
+                    <td>{{$construct->remarks}}</td>
                 </tr>
             @endforeach
             </tbody>

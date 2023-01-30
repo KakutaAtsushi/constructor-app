@@ -23,10 +23,13 @@ class CreateConstructsTable extends Migration
             $table->string("real_work_time")->nullable();
             $table->string("business_name");
             $table->string("route");
+            $table->string("coordinate")->nullable();
             $table->tinyInteger("remind_flag")->default(0);
             $table->tinyInteger("flag")->default(0);
             $table->string("bus_station");
             $table->tinyInteger("bus_relocation_flag")->default(0);
+            $table->tinyInteger("stopped_bus_flag")->default(0);
+            $table->tinyInteger("detour_flag")->default(0);
             $table->string("remarks")->nullable();
             $table->datetime("started_at");
             $table->datetime("ended_at")->nullable();

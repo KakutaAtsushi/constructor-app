@@ -17,6 +17,8 @@ Route::post("/checklist/store", "CheckListController@store")->name("checklist.st
 Route::get("/checklist/edit/{id}", "CheckListController@edit")->name("checklist.edit");
 Route::post("/checklist/update", "CheckListController@update")->name("checklist.update");
 Route::post("/checklist/delete", "CheckListController@delete")->name("checklist.delete");
+Route::get("/pdf/{checklist_id}", "CheckListController@pdf")->name("pdf");
+
 
 Route::get("/calendar", "CalendarController@index")->name( 'calendar');
 

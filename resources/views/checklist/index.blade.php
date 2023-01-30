@@ -21,6 +21,9 @@
                         <a href="/public/checklist/edit/{{$data->id}}">
                             <button type="button" class="btn btn-success btn-lg">編集</button>
                         </a>
+                        <a href="/public/pdf/{{$data->id}}" target="_blank" style="text-decoration: blink;">
+                            <button type="button" class="btn btn-warning btn-lg">PDFで開く</button>
+                        </a>
                     </div>
                 </div>
             @endforeach

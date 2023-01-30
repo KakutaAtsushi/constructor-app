@@ -42,8 +42,11 @@ class CalendarController extends Controller
         }
         $event_data = [];
         foreach ($construct_data as $key => $data) {
+            $bus_info = $data->bus_relocation_flag ? "　バス移設:必要" : "" ;
+            $bus_info .= $data->stopped_bus_flag ? "　バス休止:必要" : "";
+            $bus_info .= $data->detour_flag ? "　迂回運転:必要" : "";
             $event_data[$key]["url"] = "construct/edit/" . $data->id;
-            $event_data[$key]["title"] = "工事内容:" . $data->detail . "　工事場所:" . $data->location;
+            $event_data[$key]["title"] = "工事内容:" . $data->detail . "　工事場所:" . $data->location . $bus_info;
             $event_data[$key]["start"] = $data->started_at;
             $event_data[$key]["end"] = $data->ended_at;
         }

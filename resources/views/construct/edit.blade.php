@@ -40,41 +40,64 @@
             <label for="route">最寄りバス停</label>
             <input type="text" class="form-control" id="bus_station" value="{{$construct_data->bus_station}}"
                    aria-describedby="construct-route" name="bus_station" @if($edit_mode) @else readonly @endif>
-            <label style="color:red; font-weight: bold">バス停の移設:</label>@if($construct_data->bus_relocation_flag === 1)
-                必要 @else 必要なし @endif
+        </div>
+        <div class="form-check m-3 form-group">
+            <div class="checkbox-inline">
+                <input type="checkbox" class="form-check-input" name="relocation_bus" value="1"
+                       id="relocation_bus" @if($construct_data->bus_relocation_flag === 1) checked @endif  @if($edit_mode) @else disabled @endif>
+                <label class="form-check-label" for="relocation_bus">バス停の移設</label>
+            </div>
+            <div class="checkbox-inline">
+                <input type="checkbox" class="form-check-input" name="stopped_bus" value="1"
+                       id="stopped_bus" @if($construct_data->stopped_bus_flag === 1) checked @endif  @if($edit_mode) @else disabled @endif>
+                <label class="form-check-label" for="stopped_bus">バス停の休止</label>
+            </div>
+            <div class="checkbox-inline">
+                <input type="checkbox" class="form-check-input" name="detour" value="1"
+                       id="detour" @if($construct_data->detour_flag === 1) checked @endif  @if($edit_mode) @else disabled @endif>
+                <label class="form-check-label" for="detour">迂回運転</label>
+            </div>
         </div>
         <div class="form-group m-3">
             <label for="office">営業所</label>
-            <input type="text" class="form-control" id="office" value="{{$construct_data->office}}"
-                   aria-describedby="construct-office" name="office" @if($edit_mode) @else readonly @endif>
+            @foreach($offices as $key => $office)
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="office-{{$key}}" value="{{$office}}"
+                           id="check-{{$key}}" @if($edit_mode) @else disabled @endif @if($construct_office_ids !==[])@foreach($construct_office_ids as $ids) @if($key+1 === $ids) checked @endif @endforeach @endif>
+                    <label class="form-check-label" for="check-{{$key}}">{{$office}}</label>
+                </div>
+            @endforeach
         </div>
         <div class="form-group m-3">
-            <label for="detail">工事内容</label>
-            <input type="text" class="form-control" id="detail" value="{{$construct_data->detail}}"
-                   aria-describedby="construct-detail" name="detail" @if($edit_mode) @else readonly @endif>
+            <label for="exampleInputPassword1">障害内容</label>
+            <select class="form-select" aria-label="Default select example" name="detail" @if($edit_mode) @else disabled @endif>
+                <option value="無し" @if($construct_data->detail === "無し") selected @endif>無し</option>
+                <option value="通行止め" @if($construct_data->detail === "通行止め") selected @endif>通行止め</option>
+                <option value="片側交互通行" @if($construct_data->detail === "片側交互通行") selected @endif>片側交互通行</option>
+                <option value="車線減少" @if($construct_data->detail === "車線減少") selected @endif>車線減少</option>
+                <option value="幅員減少" @if($construct_data->detail === "幅員減少") selected @endif>幅員減少</option>
+                <option value="その他" @if($construct_data->detail === "その他") selected @endif>その他</option>
+            </select>
         </div>
         <div class="form-group m-3">
             <label for="started_at">工事開始日</label>
-            <input type="text" class="form-control" id="started_at" value="{{$construct_data->started_at}}"
+            <input type="datetime-local" class="form-control" id="started_at" value="{{$construct_data->started_at}}"
                    aria-describedby="construct-started_at" name="started_at" @if($edit_mode) @else readonly @endif>
         </div>
-        @if(!empty($construct_data->real_work_time))
-            <div class="form-group m-3">
-                <input type="text" class="form-control" id="real_work_time"
-                       value="内{{$construct_data->real_work_time}}日"
-                       aria-describedby="construct-real_work_time" name="real_work"
-                       @if($edit_mode) @else readonly @endif>
-            </div>
-        @else
-            <div class="form-group m-3">
-                <input type="text" class="form-control" id="real_work_time" value="内0日"
-                       aria-describedby="construct-real_work_time" name="real_work"
-                       @if($edit_mode) @else readonly @endif>
-            </div>
-        @endif
+        <div class="form-group m-3">
+            <input type="hidden" id="selected" value="@if(!empty($construct_data->real_work_time)) {{$construct_data->real_work_time}} @endif">
+            <input type="hidden" id="render_flag" value="false">
+
+            <label for="ended_at">実質作業期間</label>
+            <input type="hidden" id="worktime" value="{{$construct_data->real_work_time}}">
+                <select class="form-select" id="real_work" name="real_work" aria-label="Default select example" @if($edit_mode) @else disabled @endif>
+                    <option value="" @if(!isset($construct_data->real_work_time)) selected @endif>選択してください</option>
+                    <option value="" @if(isset($construct_data->real_work_time)) selected @endif>{{$construct_data->real_work_time}}</option>
+                </select>
+        </div>
         <div class="form-group m-3">
             <label for="ended_at">工事終了日</label>
-            <input type="text" class="form-control" id="ended_at" value="{{$construct_data->ended_at}}"
+            <input type="datetime-local" class="form-control" id="ended_at" value="{{$construct_data->ended_at}}"
                    aria-describedby="construct-ended_at" name="ended_at" @if($edit_mode) @else readonly @endif>
         </div>
         <div class="form-group iframe">
@@ -86,8 +109,6 @@
             </iframe>
 
         </div>
-
-
         @if($edit_mode)
             <div class="form-group m-3" style="text-align:right; margin-right: 40px; margin-top: 30px;">
                 <button type="submit" class="btn btn-primary">更新する</button>
@@ -109,7 +130,7 @@
 </div>
 
 @include("template.footer")
-
+<script src="{{asset("js/select.js")}}"></script>
 <script>
     const editButton = id => {
         document.location.href = `/public/construct/edit/${id}?edit_mode=true`

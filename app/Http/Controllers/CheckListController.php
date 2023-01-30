@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Checklist;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckListController extends Controller
 {
@@ -15,7 +17,12 @@ class CheckListController extends Controller
     public function index()
     {
         $items = [];
-        $checklist = Checklist::get();
+        $office_user_id = Auth::user()->office;
+        if ($office_user_id !== 0) {
+            $checklist = Checklist::where("office", $office_user_id)->get();
+        } else {
+            $checklist = Checklist::get();
+        }
         foreach ($checklist as $raw_data) {
             $items[] = explode(",", $raw_data->item);
         }
@@ -37,7 +44,7 @@ class CheckListController extends Controller
         }
         $item = substr($item, 0, -1);
 
-        Checklist::create(["title" => $request->input("title"), "item" => $item]);
+        Checklist::create(["title" => $request->input("title"), "item" => $item, "office" => Auth::user()->office]);
         return redirect("/checklist");
     }
 
@@ -68,5 +75,14 @@ class CheckListController extends Controller
         $id = $request->input("id");
         Checklist::where("id", $id)->delete();
         return redirect("/checklist");
+    }
+
+    public function pdf($checklist_id)
+    {
+        $checklist = Checklist::where("id", $checklist_id)->first();
+        $title = $checklist->title;
+        $items = collect(explode(",", $checklist->item));
+        $pdf = PDF::loadView("checklist.pdf", compact("items", "title"));
+        return $pdf->stream();
     }
 }
