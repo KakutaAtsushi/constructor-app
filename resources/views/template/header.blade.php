@@ -10,10 +10,9 @@
     <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
     <script>
         window.OneSignal = window.OneSignal || [];
-        OneSignal.push(function () {
+        OneSignal.push(function() {
             OneSignal.init({
                 appId: "24588a5a-b0ac-482a-ad19-210988277326",
-                autoRegister: false,
             });
         });
         @if(Auth::check())
