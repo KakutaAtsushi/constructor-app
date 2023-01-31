@@ -13,11 +13,11 @@
         OneSignal.push(function () {
             OneSignal.init({
                 appId: "24588a5a-b0ac-482a-ad19-210988277326",
-                autoRegister: true,
+                autoRegister: false,
             });
         });
         @if(Auth::check())
-        OneSignal.push(['sendTag', 'officeId', {{Auth::user()->office}}, function(tagsSent) {}]);
+            OneSignal.push(['sendTag', 'officeId', {{Auth::user()->office}}, function(tagsSent) {}]);
         @endif
     </script>
 </head>
