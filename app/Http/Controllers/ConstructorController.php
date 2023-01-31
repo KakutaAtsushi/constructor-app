@@ -63,7 +63,7 @@ class ConstructorController extends Controller
         }
         $route_name = $this->processing_route_name($form_items);
         Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
-        => $form_items["bus_station"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
+        => $form_items["bus_station"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
             $form_items["end"]]);
         return redirect("/construct");
     }
@@ -92,7 +92,7 @@ class ConstructorController extends Controller
         if ($fields != []) {
             $this->send_target($fields, $form_items["location"] . "が更新されました。");
         }
-        Constructor::where("id", $construct_id)->update(["location" => $form_items["location"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
+        Constructor::where("id", $construct_id)->update(["location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
     }
 
@@ -127,10 +127,10 @@ class ConstructorController extends Controller
 
     public function remind()
     {
-        $dt1 = Carbon::now()->addDays(3);
         $construct = Constructor::where("remind_flag", 0)->get();
         $fields = [];
         foreach ($construct as $data) {
+            $dt1 = Carbon::now()->addDays((int)$data->notify_time);
             $dt2 = new Carbon($data->started_at);
             if ($dt1->isSameDay($dt2)) {
                 Constructor::where("id", $data["id"])->update(["remind_flag" => 1]);
@@ -138,7 +138,7 @@ class ConstructorController extends Controller
                     $fields = $this->create_fields($data["office"]);
                 }
                 if ($fields != []) {
-                    $this->send_target($fields, $data["location"] . "が三日前になりました。");
+                    $this->send_target($fields, $data["location"] . "が" . $data->notify_time . "日前になりました。");
                 }
             }
         }
@@ -159,17 +159,17 @@ class ConstructorController extends Controller
 
     public function send_target($fields, $message)
     {
-//        foreach ($fields as $field) {
-//            OneSignal::sendNotificationUsingTags($message,
-//                array(
-//                    $field,
-//                ),
-//                $url = null,
-//                $data = null,
-//                $buttons = null,
-//                $schedule = null
-//            );
-//        }
+        foreach ($fields as $field) {
+            OneSignal::sendNotificationUsingTags($message,
+                array(
+                    $field,
+                ),
+                $url = null,
+                $data = null,
+                $buttons = null,
+                $schedule = null
+            );
+        }
     }
 
     private function explode_offices($offices): array

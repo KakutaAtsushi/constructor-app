@@ -8,9 +8,19 @@
         @csrf
         <input type="hidden" value="{{$construct_data->id}}" name="construct_id">
         <div class="form-group m-3">
-            <label for="location">工事場所</label>
+            <label for="location">影響発生場所</label>
             <input type="text" class="form-control" id="location" value="{{$construct_data->location}}"
                    aria-describedby="construct-location" name="location" @if($edit_mode) @else readonly @endif>
+        </div>
+        <div class="form-group m-3">
+            <label for="coordinate">座標</label>
+            <input type="text" class="form-control" id="coordinate" value="{{$construct_data->coordinate}}"
+                   aria-describedby="construct-coordinate"
+                   name="coordinate"  @if($edit_mode) @else readonly @endif>
+        </div>
+        <div class="form-group m-3" style="display: flex; justify-content: flex-end;">
+            <button type="button" class="btn btn-outline-secondary" onclick="href()" @if($edit_mode) @else disabled @endif>GoogleMapを開く
+            </button>
         </div>
         <div class="form-group m-3 row">
             <label for="editor">情報登録者</label>
@@ -100,8 +110,14 @@
             <input type="datetime-local" class="form-control" id="ended_at" value="{{$construct_data->ended_at}}"
                    aria-describedby="construct-ended_at" name="ended_at" @if($edit_mode) @else readonly @endif>
         </div>
+        <div class="form-group m-3 row">
+            <label for="notify_time">リマインド期間</label>
+            <input type="number" class="form-control" value="{{$construct_data->notify_time}}" id="notify_time" aria-describedby="construct-notify_time"
+                   name="notify_time"  @if($edit_mode) @else readonly @endif>
+        </div>
         <div class="form-group iframe">
-            <iframe src="https://www.google.com/maps?output=embed&q={{$construct_data->location}}&z=15"
+{{--            <iframe src="https://www.google.com/maps?output=embed&q={{$construct_data->location}}&z=15"--}}
+            <iframe src="https://www.google.com/maps?output=embed&q={{$construct_data->coordinate ?? $construct_data->location}}"
                     width="1000"
                     height="650"
                     style="border:0"

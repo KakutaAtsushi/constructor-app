@@ -31,6 +31,17 @@
                    aria-describedby="construct-location"
                    placeholder="入力例：大阪府東大阪市島之内４丁目３８－５" name="location" required>
         </div>
+        <div class="form-group m-3" style="display: flex; justify-content: flex-end;">
+            <button type="button" class="btn btn-outline-secondary" onclick="href()">GoogleMapを開く
+            </button>
+        </div>
+        <div class="form-group m-3">
+            <label for="coordinate">座標</label>
+            <input type="text" class="form-control" id="coordinate" value="{{old("coordinate")}}"
+                   aria-describedby="construct-coordinate"
+                   placeholder="入力例：35.8076097,139.9349548" name="coordinate" required>
+        </div>
+
         <div class="form-group m-3">
             <label for="exampleInputPassword1">障害内容</label>
             <select class="form-select" aria-label="Default select example" name="detail">
@@ -114,15 +125,11 @@
                     <option value="" selected>選択してください</option>
                 </select>
             </div>
-            <div class="form-group iframe">
-                <iframe src="https://www.google.com/maps?output=embed&q=japan&z=15"
-                        width="1000"
-                        height="650"
-                        style="border:0"
-                        allowfullscreen>
-                </iframe>
-
-            </div>
+        </div>
+        <div class="form-group m-3 row">
+            <label for="notify_time">リマインド期間</label>
+            <input type="number" value="{{old("notify_time")}}" class="form-control" id="notify_time" aria-describedby="construct-notify_time"
+                   name="notify_time">
         </div>
         <div class="form-group" style="text-align:right; margin-right: 40px; margin-top: 30px;">
             <button type="submit" class="flex btn btn-primary">登録する</button>
@@ -130,6 +137,7 @@
     </form>
 </div>
 @include("template.footer")
+<script src="{{asset("js/googlemap.js")}}"></script>
 <script src="{{asset("js/checkbox.js")}}"></script>
 <script src="{{asset("js/select.js")}}"></script>
 <script src="{{asset("js/increment.js")}}"></script>
