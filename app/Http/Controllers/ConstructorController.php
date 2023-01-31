@@ -146,7 +146,7 @@ class ConstructorController extends Controller
         return "false";
     }
 
-    public function send_all($id)
+    public function send_all()
     {
         OneSignal::sendNotificationToAll(
             "Some Message",
