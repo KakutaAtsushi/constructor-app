@@ -21,7 +21,7 @@
             <div class="col">
                 <label for="username">氏名</label>
                 <input type="text" class="form-control" id="username" value="{{old("username")}}"
-                       aria-describedby="construct-end" name="username">
+                       aria-describedby="construct-end" name="username" required>
             </div>
         </div>
 
