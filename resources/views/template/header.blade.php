@@ -12,7 +12,7 @@
         window.OneSignal = window.OneSignal || [];
         OneSignal.push(function() {
             OneSignal.init({
-                appId: "24588a5a-b0ac-482a-ad19-210988277326",
+                appId: "d00ce17c-89f6-4c1d-8c97-b3fc029381f3",
             });
         });
         @if(Auth::check())
