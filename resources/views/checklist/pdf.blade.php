@@ -12,15 +12,18 @@
         font-family: ipag, serif;
     }
 </style>
-<p>タイトル:{{$title}}</p>
-@foreach($items as $key => $item)
-    <div style="width:200px;height: 100px; ">
-        <div style="margin:10px">
-            <p>項目{{$key+1}}</p>
-            <p>@if($item === "")無し@else{{$item}}@endif</p>
-        </div>
-    </div>
-@endforeach
 
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">タイトル：{{$title}}</h5>
+        @foreach($items as $key => $item)
+            <div style="width:200px;height: 100px; ">
+                <div style="margin:10px">
+                    <p class="card_text">項目{{$key+1}}: @if($item === "")無し@else{{$item}}@endif</p>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
 </body>
 </html>
