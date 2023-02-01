@@ -19,7 +19,7 @@
             <p style="margin:5px">タイトル:{{$title}}</p>
             @foreach($items as $key => $item)
                 <div style="width:200px;height: 100px; ">
-                    <div style="margin:2px; padding:1px" class="pdf">
+                    <div style="margin:1px; padding:1px" class="pdf">
                         <p>項目{{$key+1}}: @if($item === "")無し@else{{$item}}@endif</p>
                     </div>
                 </div>
