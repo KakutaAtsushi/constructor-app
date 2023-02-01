@@ -15,7 +15,7 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        <h5 class="card-title">タイトル：{{$title}}</h5>
+        <h5 class="card-title">タイトル:{{$title}}</h5>
         @foreach($items as $key => $item)
             <div style="width:200px;height: 100px; ">
                 <div style="margin:10px">
