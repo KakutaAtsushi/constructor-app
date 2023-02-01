@@ -58,13 +58,14 @@ class ConstructorController extends Controller
         if ($office_name != "無し") {
             $fields = $this->create_fields($office_name);
         }
-        if ($fields != []) {
-            $this->send_target($fields, $form_items["location"] . "が作成されました。");
-        }
+
         $route_name = $this->processing_route_name($form_items);
-        Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
+        $data = Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
         => $form_items["bus_station"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
             $form_items["end"]]);
+        if ($fields != []) {
+            $this->send_target($fields, $form_items["location"] . "が作成されました。", $data->id);
+        }
         return redirect("/construct");
     }
 
@@ -90,7 +91,7 @@ class ConstructorController extends Controller
             $fields = $this->create_fields($offices);
         }
         if ($fields != []) {
-            $this->send_target($fields, $form_items["location"] . "が更新されました。");
+            $this->send_target($fields, $form_items["location"] . "が更新されました。",$construct_id);
         }
         Constructor::where("id", $construct_id)->update(["location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
@@ -138,7 +139,7 @@ class ConstructorController extends Controller
                     $fields = $this->create_fields($data["office"]);
                 }
                 if ($fields != []) {
-                    $this->send_target($fields, $data["location"] . "が" . $data->notify_time . "日前になりました。");
+                    $this->send_target($fields, $data["location"] . "が" . $data->notify_time . "日前になりました。",$data->id);
                 }
             }
         }
@@ -150,21 +151,20 @@ class ConstructorController extends Controller
     {
         OneSignal::sendNotificationToAll(
             "Some Message",
-            $url = null,
             $data = null,
             $buttons = null,
             $schedule = null
         );
     }
 
-    public function send_target($fields, $message)
+    public function send_target($fields, $message, $id)
     {
         foreach ($fields as $field) {
             OneSignal::sendNotificationUsingTags($message,
                 array(
                     $field,
                 ),
-                $url = null,
+                $url = "https:shyu-web.sakura.ne.jp/public/construct/edit/${$id}",
                 $data = null,
                 $buttons = null,
                 $schedule = null
