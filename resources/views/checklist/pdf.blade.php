@@ -16,7 +16,7 @@
     }
 </style>
         <div class="pdf">
-            <p style="margin:10px">タイトル:{{$title}}</p>
+            <p style="margin:5px">タイトル:{{$title}}</p>
             @foreach($items as $key => $item)
                 <div style="width:200px;height: 100px; ">
                     <div style="margin:10px">
