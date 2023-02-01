@@ -11,19 +11,19 @@
     body {
         font-family: ipag, serif;
     }
+    .pdf{
+        border: solid;
+    }
 </style>
-
-<div class="card mb-3">
-    <div class="card-body">
-        <h5 class="card-title">タイトル:{{$title}}</h5>
-        @foreach($items as $key => $item)
-            <div style="width:200px;height: 100px; ">
-                <div style="margin:10px">
-                    <p class="card_text">項目{{$key+1}}: @if($item === "")無し@else{{$item}}@endif</p>
+        <div class="pdf">
+            <h5 class="">タイトル:{{$title}}</h5>
+            @foreach($items as $key => $item)
+                <div style="width:200px;height: 100px; ">
+                    <div style="margin:10px">
+                        <p class="card_text">項目{{$key+1}}: @if($item === "")無し@else{{$item}}@endif</p>
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-</div>
+            @endforeach
+        </div>
 </body>
 </html>
