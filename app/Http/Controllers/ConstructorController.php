@@ -164,7 +164,7 @@ class ConstructorController extends Controller
                 array(
                     $field,
                 ),
-                $url = "https:shyu-web.sakura.ne.jp/public/construct/edit/${$id}",
+                $url = "https:shyu-web.sakura.ne.jp/public/construct/edit/$id",
                 $data = null,
                 $buttons = null,
                 $schedule = null
