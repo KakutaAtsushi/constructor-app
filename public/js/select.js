@@ -1,7 +1,7 @@
 let selectBox = document.getElementById("real_work");
 let flag = document.getElementById("render_flag").value;
 let editMode = location.search.split("=");
-let href = location.href.includes("create")
+let href_select = location.href.includes("create")
 document.getElementById("real_work").addEventListener("click", () => {
     if (!flag) {
         let startedAt = document.getElementById("started_at").value;
@@ -29,7 +29,7 @@ document.getElementById("real_work").addEventListener("click", () => {
 
 
 document.getElementById("started_at").addEventListener("click", () => {
-    if (editMode[1] === "true" || href) {
+    if (editMode[1] === "true" || href_select) {
 
         while (selectBox.firstChild) {
             selectBox.removeChild(selectBox.firstChild);
@@ -41,7 +41,7 @@ document.getElementById("started_at").addEventListener("click", () => {
     }
 })
 document.getElementById("ended_at").addEventListener("click", () => {
-    if (editMode[1] === "true" || href) {
+    if (editMode[1] === "true" || href_select) {
 
         while (selectBox.firstChild) {
             selectBox.removeChild(selectBox.firstChild);
