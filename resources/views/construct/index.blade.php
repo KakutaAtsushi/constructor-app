@@ -48,7 +48,7 @@
             </tbody>
         </table>
         <div class="mt-1 mb-1 row justify-content-center">
-            {{ $construct->links() }}
+            {!! $construct->links() !!}
         </div>
     </div>
 </div>
