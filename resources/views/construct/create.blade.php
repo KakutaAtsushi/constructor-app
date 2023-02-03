@@ -39,7 +39,7 @@
             <label for="coordinate">座標</label>
             <input type="text" class="form-control" id="coordinate" value="{{old("coordinate")}}"
                    aria-describedby="construct-coordinate"
-                   placeholder="入力例：35.8076097,139.9349548" name="coordinate" required>
+                   placeholder="入力例：35.8076097,139.9349548" name="coordinate" >
         </div>
 
         <div class="form-group m-3">
