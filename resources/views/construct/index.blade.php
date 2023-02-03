@@ -47,6 +47,9 @@
             @endforeach
             </tbody>
         </table>
+        <div class="mt-1 mb-1 row justify-content-center">
+            {{ $board_list->links() }}
+        </div>
     </div>
 </div>
 @include("template.footer")

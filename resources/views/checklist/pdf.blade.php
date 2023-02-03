@@ -13,7 +13,7 @@
     }
     .pdf{
         border: solid;
-        padding:5px;
+        padding:15px;
     }
 </style>
         <div>
@@ -21,7 +21,7 @@
             @foreach($items as $key => $item)
                 <div style="height: 20px;">
                     <div style="margin:10px;">
-                        <p  class="pdf">項目{{$key+1}}: @if($item === "")無し@else{{$item}}@endif</p>
+                        <p  class="pdf">項目{{$key+1}}: @if($item === "")@else{{$item}}@endif</p>
                     </div>
                 </div>
             @endforeach

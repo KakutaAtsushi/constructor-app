@@ -9,12 +9,12 @@
             <label for="title">タイトル</label>
             <input type="text" class="form-control" id="title" value="{{old("title")}}"
                    aria-describedby="checklist-title"
-                   placeholder="入力例：テンプレート１" name="title">
+                   placeholder="入力例：テンプレート１" name="title" required>
         </div>
         <div class="form-group m-3" id="items">
             <label for="item-1">項目１</label>
             <input type="text" class="form-control items" value=""
-                   id="item-1" name="item-1">
+                   id="item-1" name="item-1" required>
         </div>
         <div class="form-group m-3">
             <button type="button" onClick="incrementItem('checklist')" id="increment" class="btn btn-outline-success btn-sm mt-4">

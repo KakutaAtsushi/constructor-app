@@ -33,7 +33,7 @@ class ConstructorController extends Controller
         if ($search_word = request("search")) {
             $constructs = Constructor::where("office", "LIKE", "%" . $search_word . "%")->get();
         } else {
-            $constructs = Constructor::get();
+            $constructs = Constructor::paginate(20);
             if ($user_office_id !== 0) {
                 $office_dict = array_flip($this->office_dict);
                 $constructs = Constructor::where("office", "like", "%{$office_dict[$user_office_id]}%")->get();
