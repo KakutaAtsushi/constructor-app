@@ -147,6 +147,7 @@
 
 @include("template.footer")
 <script src="{{asset("js/select.js")}}"></script>
+<script src="{{asset("js/googlemap.js")}}"></script>
 <script>
     const editButton = id => {
         document.location.href = `/public/construct/edit/${id}?edit_mode=true`
