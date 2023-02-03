@@ -18,7 +18,7 @@ class ConstructSeeder extends Seeder
         for($i=0; $i <= $count; $i++){
             Constructor::create([
                 'location' => "test".$i,
-                "office" => "test".$i,
+                "office" => "岐南営業所",
                 "detail" => "test".$i,
                 "username" => "test".$i,
                 "department" => "test".$i,
