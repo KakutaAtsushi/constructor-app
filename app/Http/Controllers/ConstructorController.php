@@ -31,13 +31,13 @@ class ConstructorController extends Controller
         $user_office_id = Auth::user()->office;
         $offices = config("env");
         if ($search_word = request("search")) {
-            $constructs = Constructor::where("office", "LIKE", "%" . $search_word . "%")->get();
+            $constructs = Constructor::where("office", "LIKE", "%" . $search_word . "%")->paginate(20);
         } else {
             $constructs = new Constructor;
             $constructs = $constructs->paginate(20);
             if ($user_office_id !== 0) {
                 $office_dict = array_flip($this->office_dict);
-                $constructs = Constructor::where("office", "like", "%{$office_dict[$user_office_id]}%")->get();
+                $constructs = Constructor::where("office", "like", "%{$office_dict[$user_office_id]}%")->paginate(20)();
                 return view("construct.index", compact("constructs", "offices"));
             }
         }
