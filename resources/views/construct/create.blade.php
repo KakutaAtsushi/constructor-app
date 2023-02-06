@@ -128,7 +128,7 @@
         </div>
         <div class="form-group m-3 row">
             <label for="notify_time">リマインド期間</label>
-            <input type="number" value="{{old("notify_time")}}" class="form-control" id="notify_time" aria-describedby="construct-notify_time"
+            <input type="number" value="{{old("notify_time")}}" min="0" max="365" class="form-control" id="notify_time" aria-describedby="construct-notify_time"
                    name="notify_time">
         </div>
         <div class="form-group" style="text-align:right; margin-right: 40px; margin-top: 30px;">
