@@ -112,7 +112,7 @@
         </div>
         <div class="form-group m-3 row">
             <label for="notify_time">リマインド期間</label>
-            <input type="number" class="form-control" value="{{$construct_data->notify_time}}" id="notify_time" aria-describedby="construct-notify_time"
+            <input type="number" class="form-control" min="0" max="365" value="{{$construct_data->notify_time}}" id="notify_time" aria-describedby="construct-notify_time"
                    name="notify_time"  @if($edit_mode) @else readonly @endif>
         </div>
         <div class="form-group iframe">
