@@ -5,15 +5,17 @@
         <div class="col-4">
             <h2 class="title">工事情報管理</h2>
         </div>
-        <form style="display:flex; align-items: center" class="col-4">
-            <select class="form-select" aria-label="Default select example" name="search" style="width:70%; height: 35px;">
-                <option value="" selected>選択してください</option>
-                @foreach($offices as $office)
-                    <option id="{{$office}}" value="{{$office}}">{{$office}}</option>
-                @endforeach
-            </select>
-            <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;">営業所検索</button>
-        </form>
+        @if(Auth::user()->office === 0)
+            <form style="display:flex; align-items: center" class="col-4">
+                <select class="form-select" aria-label="Default select example" name="search" style="width:70%; height: 35px;">
+                    <option value="" selected>選択してください</option>
+                    @foreach($offices as $office)
+                        <option id="{{$office}}" value="{{$office}}">{{$office}}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-outline-dark" style="font-size:12px; width:100px; height: 35px;">営業所検索</button>
+            </form>
+        @endif
     </div>
     <div class="create">
         <a href="{{route("construct.create")}}">
