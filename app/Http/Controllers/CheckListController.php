@@ -18,11 +18,7 @@ class CheckListController extends Controller
     {
         $items = [];
         $office_user_id = Auth::user()->office;
-        if ($office_user_id !== 0) {
-            $checklist = Checklist::where("office", $office_user_id)->get();
-        } else {
-            $checklist = Checklist::get();
-        }
+        $checklist = Checklist::where("office", $office_user_id)->get();
         foreach ($checklist as $raw_data) {
             $items[] = explode(",", $raw_data->item);
         }
