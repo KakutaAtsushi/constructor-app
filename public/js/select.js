@@ -71,13 +71,18 @@ window.addEventListener("load", function () {
                 return;
             }
             let selected = document.getElementById("worktime").value;
+            let option = document.createElement("option");
+            option.text = (0).toString();
+            option.value = (0).toString();
+            option.className = "add_option";
+            document.getElementById("real_work").appendChild(option);
+
             for (let i = 0; i < diffDays; i++) {
                 let option = document.createElement("option");
                 option.text = (i + 1).toString();
                 option.value = (i + 1).toString();
                 option.className = "add_option";
                 if(i+1 == selected){option.selected = true;}
-
                 document.getElementById("real_work").appendChild(option);
             }
             flag = true;
