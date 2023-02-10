@@ -101,7 +101,7 @@
             <label for="ended_at">実質作業期間</label>
             <input type="hidden" id="worktime" value="{{$construct_data->real_work_time}}">
                 <select class="form-select" id="real_work" name="real_work" aria-label="Default select example" @if($edit_mode) @else disabled @endif>
-                    <option value="" @if(!isset($construct_data->real_work_time)) selected @endif>選択してください</option>
+                    <option value="0" @if(!isset($construct_data->real_work_time)) selected @endif>0</option>
                     <option value="" @if(isset($construct_data->real_work_time)) selected @endif>{{$construct_data->real_work_time}}</option>
                 </select>
         </div>
