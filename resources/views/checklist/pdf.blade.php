@@ -15,13 +15,14 @@
         border: solid;
         padding:15px;
         margin-top: 15px;
+        word-wrap: break-word;
     }
 </style>
         <div>
             <p style="margin:5px">タイトル:{{$title}}</p>
             @foreach($items as $key => $item)
                 <div style="height: 20px;">
-                    <div style="margin:10px; margin-top:35px;">
+                    <div style="margin:10px;margin-top:35px;">
                         <p  class="pdf">項目{{$key+1}}: @if($item === "")@else{{$item}}@endif</p>
                     </div>
                 </div>
