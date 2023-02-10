@@ -23,7 +23,7 @@ class CreateConstructsTable extends Migration
             $table->string("real_work_time")->nullable();
             $table->string("business_name");
             $table->string("route");
-            $table->string("today_notify")->default(0);
+
             $table->string("notify_time")->nullable();
             $table->string("coordinate")->nullable();
             $table->tinyInteger("remind_flag")->default(0);
