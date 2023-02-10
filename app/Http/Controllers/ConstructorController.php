@@ -92,9 +92,9 @@ class ConstructorController extends Controller
             $fields = $this->create_fields($offices);
         }
         if ($fields != []) {
-            $this->send_target($fields, $form_items["location"] . "が更新されました。",$construct_id);
+            $this->send_target($fields, $form_items["location"] . "が更新されました。", $construct_id);
         }
-        Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"],"location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
+        Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"], "location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
     }
 
@@ -129,9 +129,23 @@ class ConstructorController extends Controller
 
     public function remind()
     {
-        $construct = Constructor::where("remind_flag", 0)->get();
+        $remind_construct = Constructor::where("remind_flag", 0)->get();
+        $today_construct = Constructor::where("today_notify", 0)->get();
         $fields = [];
-        foreach ($construct as $data) {
+        foreach ($today_construct as $data) {
+            $t_dt1 = new Carbon($data->ended_at);
+            $t_dt2 = new Carbon($data->started_at);
+            if ($t_dt1->isSameDay($t_dt2)) {
+                Constructor::where("id", $data["id"])->update(["today_notify" => 1]);
+                if ($data["office"] != "無し") {
+                    $fields = $this->create_fields($data["office"]);
+                }
+                if ($fields != []) {
+                    $this->send_target($fields, "本日" . $data["location"] . "で工事開始です。", $data->id);
+                }
+            }
+        }
+        foreach ($remind_construct as $data) {
             $dt1 = Carbon::now()->addDays((int)$data->notify_time);
             $dt2 = new Carbon($data->started_at);
             if ($dt1->isSameDay($dt2)) {
@@ -140,11 +154,10 @@ class ConstructorController extends Controller
                     $fields = $this->create_fields($data["office"]);
                 }
                 if ($fields != []) {
-                    $this->send_target($fields, $data["location"] . "が" . $data->notify_time . "日前になりました。",$data->id);
+                    $this->send_target($fields, $data["location"] . "が" . $data->notify_time . "日前になりました。", $data->id);
                 }
             }
         }
-
         return "false";
     }
 
