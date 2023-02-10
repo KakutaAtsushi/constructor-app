@@ -146,7 +146,7 @@ class ConstructorController extends Controller
             }
         }
         foreach ($remind_construct as $data) {
-            if (!empty($data["real_time_work"])) {
+            if (!empty($data["notify_time"])) {
                 $dt1 = Carbon::now()->addDays((int)$data->notify_time);
                 $dt2 = new Carbon($data->started_at);
                 if ($dt1->isSameDay($dt2)) {
