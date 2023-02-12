@@ -73,7 +73,7 @@ window.addEventListener("load", function () {
             option.value = "0";
             option.className = "add_option";
             document.getElementById("real_work").appendChild(option);
-            for (let i = 0; i < diffDays; i++) {
+            for (let i = 0; i < diffDays+1; i++) {
                 let option = document.createElement("option");
                 option.text = i.toString();
                 option.value = i.toString();
