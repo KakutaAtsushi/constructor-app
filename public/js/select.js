@@ -68,6 +68,11 @@ window.addEventListener("load", function () {
             let diffMilliSec = endDate - startDate;
             let diffDays = parseInt(diffMilliSec / 1000 / 60 / 60 / 24);
             let selected = document.getElementById("worktime").value;
+            let option = document.createElement("option");
+            option.text = "選択してください";
+            option.value = "0";
+            option.className = "add_option";
+            document.getElementById("real_work").appendChild(option);
             for (let i = 0; i < diffDays; i++) {
                 let option = document.createElement("option");
                 option.text = i.toString();
