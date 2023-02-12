@@ -35,6 +35,8 @@ document.getElementById("started_at").addEventListener("click", () => {
         }
         let option = document.createElement("option");
         document.getElementById("real_work").appendChild(option);
+        option.text = "選択してください";
+        option.value = "0";
         flag = false;
     }
 })
