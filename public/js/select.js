@@ -11,15 +11,12 @@ document.getElementById("real_work").addEventListener("click", () => {
             let endDate = new Date(endedAt);
             let diffMilliSec = endDate - startDate;
             let diffDays = parseInt(diffMilliSec / 1000 / 60 / 60 / 24);
-            if (!Math.sign(diffDays)) {
-                return;
-            }
-            for (let i = 0; i < diffDays; i++) {
+            console.error(diffDays)
+            for (let i = 0; i < diffDays+1; i++) {
                 let option = document.createElement("option");
-                option.text = (i + 1).toString();
-                option.value = (i + 1).toString();
+                option.text = i.toString();
+                option.value = i.toString();
                 option.className = "add_option";
-
                 document.getElementById("real_work").appendChild(option);
             }
             flag = true;
@@ -35,7 +32,6 @@ document.getElementById("started_at").addEventListener("click", () => {
             selectBox.removeChild(selectBox.firstChild);
         }
         let option = document.createElement("option");
-        option.text = "選択してください";
         document.getElementById("real_work").appendChild(option);
         flag = false;
     }
@@ -67,20 +63,16 @@ window.addEventListener("load", function () {
             let endDate = new Date(endedAt);
             let diffMilliSec = endDate - startDate;
             let diffDays = parseInt(diffMilliSec / 1000 / 60 / 60 / 24);
-            if (!Math.sign(diffDays)) {
-                return;
-            }
             let selected = document.getElementById("worktime").value;
             let option = document.createElement("option");
             option.text = (0).toString();
             option.value = (0).toString();
             option.className = "add_option";
             document.getElementById("real_work").appendChild(option);
-
             for (let i = 0; i < diffDays; i++) {
                 let option = document.createElement("option");
-                option.text = (i + 1).toString();
-                option.value = (i + 1).toString();
+                option.text = i.toString();
+                option.value = i.toString();
                 option.className = "add_option";
                 if(i+1 == selected){option.selected = true;}
                 document.getElementById("real_work").appendChild(option);
