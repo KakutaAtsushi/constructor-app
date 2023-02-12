@@ -2,6 +2,8 @@ let selectBox = document.getElementById("real_work");
 let flag = document.getElementById("render_flag").value;
 let editMode = location.search.split("=");
 let href_select = location.href.includes("create")
+let uri_edit = location.href.includes("edit")
+
 document.getElementById("real_work").addEventListener("click", () => {
     if (!flag) {
         let startedAt = document.getElementById("started_at").value;
@@ -51,7 +53,7 @@ document.getElementById("ended_at").addEventListener("click", () => {
 })
 window.addEventListener("load", function () {
 
-    if (editMode[1] === "true") {
+    if (editMode[1] === "true" && uri_edit) {
 
         let startedAt = document.getElementById("started_at").value;
         let endedAt = document.getElementById("ended_at").value;
@@ -64,17 +66,12 @@ window.addEventListener("load", function () {
             let diffMilliSec = endDate - startDate;
             let diffDays = parseInt(diffMilliSec / 1000 / 60 / 60 / 24);
             let selected = document.getElementById("worktime").value;
-            let option = document.createElement("option");
-            option.text = (0).toString();
-            option.value = (0).toString();
-            option.className = "add_option";
-            document.getElementById("real_work").appendChild(option);
             for (let i = 0; i < diffDays; i++) {
                 let option = document.createElement("option");
                 option.text = i.toString();
                 option.value = i.toString();
                 option.className = "add_option";
-                if(i+1 == selected){option.selected = true;}
+                if(i == selected){option.selected = true;}
                 document.getElementById("real_work").appendChild(option);
             }
             flag = true;
