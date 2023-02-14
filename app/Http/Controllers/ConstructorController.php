@@ -62,7 +62,7 @@ class ConstructorController extends Controller
 
         $route_name = $this->processing_route_name($form_items);
         $data = Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
-        => $form_items["bus_station"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
+        => $form_items["bus_station"], "news" => $form_items["news"],"notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
             $form_items["end"]]);
         if ($fields != []) {
             $this->send_target($fields, $form_items["location"] . "が作成されました。", $data->id);
@@ -94,7 +94,7 @@ class ConstructorController extends Controller
         if ($fields != []) {
             $this->send_target($fields, $form_items["location"] . "が更新されました。", $construct_id);
         }
-        Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"], "location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
+        Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"],  "news" => $form_items["news"],"location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
     }
 
