@@ -102,6 +102,12 @@
             <button type="button" onClick="onAllCheck()" id="onChecked" class="btn btn-danger btn-sm mt-4">全営業所をチェックする
             </button>
         </div>
+        <div class="form-group m-3" id="items">
+            <label for="news">お知らせ</label>
+            <input type="text" class="form-control items" id="news" value="{{old("news")}}"
+                   aria-describedby="news"
+                   placeholder="お知らせ" name="news" required>
+        </div>
         <div class="form-group m-3 row">
             <label for="remarks">備考</label>
             <textarea class="form-control" id="remarks" aria-describedby="construct-remarks"

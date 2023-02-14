@@ -89,6 +89,12 @@
                 <option value="その他" @if($construct_data->detail === "その他") selected @endif>その他</option>
             </select>
         </div>
+        <div class="form-group m-3" id="items">
+            <label for="news">お知らせ</label>
+            <input type="text" class="form-control items" id="news" value="{{old("news")}}"
+                   aria-describedby="news"
+                   placeholder="お知らせ" name="news" @if($edit_mode) @else readonly @endif>
+        </div>
         <div class="form-group m-3">
             <label for="started_at">工事開始日</label>
             <input type="datetime-local" class="form-control" id="started_at" value="{{$construct_data->started_at}}"
