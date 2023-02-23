@@ -26,6 +26,11 @@
                        id="item-{{$key+1}}" name="item-{{$key+1}}">
             @endforeach
         </div>
+        <div class="form-group m-3">
+            <button type="button" onClick="incrementItem('checklist')" id="increment" class="btn btn-outline-success btn-sm mt-4">
+                +　項目を追加
+            </button>
+        </div>
         <div class="form-group  m-3" style="text-align:right; margin-right: 40px; margin-top: 30px;">
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
@@ -39,3 +44,4 @@
     </form>
 </div>
 @include("template.footer")
+<script src="{{asset("js/increment.js")}}"></script>
