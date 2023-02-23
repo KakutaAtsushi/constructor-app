@@ -55,8 +55,7 @@ class CheckListController extends Controller
     {
         $item = "";
         $id = $request->input("id");
-        $req_data = $request->all();
-        foreach ($req_data as $key => $data) {
+        foreach ($request->all() as $key => $data) {
             if (strpos($key, "item") !== false) {
                 $item .= $data . ",";
             }
