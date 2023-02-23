@@ -3,6 +3,11 @@
     <div class="row">
         <h2 class="title col-4">チェックリスト編集</h2>
     </div>
+    <div style="width: 10%; margin-left: auto; margin-bottom: 10px; margin-right: 30px;" class="col-4">
+        <a href="{{route("checklist")}}">
+            <button id="btn--back" class="form-control btn btn-primary">戻る</button>
+        </a>
+    </div>
     <form method="POST" action="{{route("checklist.update")}}" style="padding:10px">
         @csrf
         <input type="hidden" name="id" value="{{$checklist->id}}">

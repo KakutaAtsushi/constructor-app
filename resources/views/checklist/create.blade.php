@@ -3,6 +3,11 @@
     <div class="row">
         <h2 class="title col-4">チェックリスト登録</h2>
     </div>
+    <div style="width: 10%; margin-left: auto; margin-bottom: 10px; margin-right: 30px;" class="col-4">
+        <a href="{{route("checklist")}}">
+            <button id="btn--back" class="form-control btn btn-primary">戻る</button>
+        </a>
+    </div>
     <form method="POST" action="{{route("checklist.store")}}" style="padding:30px">
         @csrf
         <div class="form-group m-3">

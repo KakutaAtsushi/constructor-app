@@ -4,6 +4,11 @@
     <div class="row">
         <h2 class="title col-4">@if($edit_mode)工事情報編集（編集中） @else 工事情報編集@endif</h2>
     </div>
+    <div style="width: 10%; margin-left: auto; margin-bottom: 10px; margin-right: 30px;" class="col-4">
+        <a href="{{route("construct")}}">
+        <button id="btn--back" class="form-control btn btn-primary">戻る</button>
+        </a>
+    </div>
     <form method="POST" action="{{route("construct.update")}}">
         @csrf
         <input type="hidden" value="{{$construct_data->id}}" name="construct_id">
