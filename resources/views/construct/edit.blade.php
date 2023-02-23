@@ -96,7 +96,7 @@
         </div>
         <div class="form-group m-3" id="items">
             <label for="news">お知らせ</label>
-            <input type="text" class="form-control items" id="news" value="{{old("news")}}"
+            <input type="text" class="form-control items" id="news" value="{{$construct_data->news}}"
                    aria-describedby="news"
                    placeholder="お知らせ" name="news" @if($edit_mode) @else readonly @endif>
         </div>
@@ -120,6 +120,18 @@
             <label for="ended_at">工事終了日</label>
             <input type="datetime-local" class="form-control" id="ended_at" value="{{$construct_data->ended_at}}"
                    aria-describedby="construct-ended_at" name="ended_at" @if($edit_mode) @else readonly @endif>
+        </div>
+        <div class="form-group m-3 row">
+            <div class="col">
+                <label for="ended_at">工事開始時間</label>
+                <input type="time" class="form-control" id="ended_at" value="{{$construct_data->inworking_start_time}}"
+                       aria-describedby="construct-end" name="inworking_start_time" @if($edit_mode) @else readonly @endif>
+            </div>
+            <div class="col">
+                <label for="ended_at">工事終了時間</label>
+                <input type="time" class="form-control" id="ended_at" value="{{$construct_data->inworking_end_time}}"
+                       aria-describedby="construct-end" name="inworking_end_time" @if($edit_mode) @else readonly @endif>
+            </div>
         </div>
         <div class="form-group m-3 row">
             <label for="notify_time">リマインド期間</label>

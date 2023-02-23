@@ -20,6 +20,7 @@ class ConstructSeeder extends Seeder
                 'location' => "test".$i,
                 "office" => "岐南営業所",
                 "detail" => "test".$i,
+                "news" => "test".$i,
                 "username" => "test".$i,
                 "department" => "test".$i,
                 "business_name" => "test".$i,

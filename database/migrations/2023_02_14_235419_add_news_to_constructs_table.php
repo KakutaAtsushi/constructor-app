@@ -26,7 +26,7 @@ class AddNewsToConstructsTable extends Migration
     public function down()
     {
         Schema::table('constructs', function (Blueprint $table) {
-            //
+            $table->string("news");
         });
     }
 }

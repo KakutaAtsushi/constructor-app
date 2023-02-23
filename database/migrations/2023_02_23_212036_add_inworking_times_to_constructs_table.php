@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTodayNotifyToConstructsTable extends Migration
+class AddInworkingTimesToConstructsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddTodayNotifyToConstructsTable extends Migration
     public function up()
     {
         Schema::table('constructs', function (Blueprint $table) {
-            $table->string("today_notify")->default(0);
+            $table->time("inworking_start_time")->nullable();
+            $table->time("inworking_end_time")->nullable();
         });
     }
 
@@ -26,7 +27,7 @@ class AddTodayNotifyToConstructsTable extends Migration
     public function down()
     {
         Schema::table('constructs', function (Blueprint $table) {
-            $table->string("today_notify")->default(0);
+            $table->time("inworking_end_time");
         });
     }
 }
