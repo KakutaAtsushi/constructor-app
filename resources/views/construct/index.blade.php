@@ -8,7 +8,7 @@
         @if(Auth::user()->office === 0)
             <form style="display:flex; align-items: center" class="col-4">
                 <select class="form-select" aria-label="Default select example" name="search" style="width:70%; height: 35px;">
-                    <option value="" selected>選択してください</option>
+                    <option value="" selected>全営業所</option>
                     @foreach($offices as $office)
                         <option id="{{$office}}" value="{{$office}}">{{$office}}</option>
                     @endforeach
