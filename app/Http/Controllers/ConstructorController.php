@@ -37,7 +37,7 @@ class ConstructorController extends Controller
             $constructs = $constructs->orderBy("created_at", "desc")->paginate(20);
             if ($user_office_id !== 0) {
                 $office_dict = array_flip($this->office_dict);
-                $constructs = Constructor::where("office", "like", "%{$office_dict[$user_office_id]}%")->orderBy("created_at", "desc")->paginate(20);
+                $constructs = Constructor::where("office", "like","%".$office_dict[$user_office_id]."%")->orderBy("created_at", "desc")->paginate(20);
                 return view("construct.index", compact("constructs", "offices"));
             }
         }
