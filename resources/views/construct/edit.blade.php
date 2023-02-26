@@ -10,6 +10,7 @@
         </a>
     </div>
     <form method="POST" action="{{route("construct.update")}}">
+        <a href="{{ route('constructs.excel.detail.download', ["construct_id" => $construct_data->id])}}" style="padding:10px">Excel出力</a>
         @csrf
         <input type="hidden" value="{{$construct_data->id}}" name="construct_id">
         <div class="form-group m-3">
@@ -172,7 +173,9 @@
         </div>
     </form>
 </div>
-
+<div id="target">
+    <img src="" id="result" />
+</div>
 @include("template.footer")
 <script src="{{asset("js/select.js")}}"></script>
 <script src="{{asset("js/googlemap.js")}}"></script>
@@ -180,4 +183,5 @@
     const editButton = id => {
         document.location.href = `/public/construct/edit/${id}?edit_mode=true`
     }
+    const script = document.createElement('script');
 </script>

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ConstructsExport;
+use App\Exports\ImageExport;
 use App\Models\Constructor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Berkayk\OneSignal\OneSignalFacade as OneSignal;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 
 class ConstructorController extends Controller
 {
@@ -29,6 +34,7 @@ class ConstructorController extends Controller
     public function index()
     {
         $user_office_id = Auth::user()->office;
+        $page = request()->input('page') ?? 0;
         $offices = config("env");
         if ($search_word = request("search")) {
             $constructs = Constructor::where("office", "LIKE", "%" . $search_word . "%")->orderBy("created_at", "desc")->paginate(20);
@@ -38,10 +44,21 @@ class ConstructorController extends Controller
             if ($user_office_id !== 0) {
                 $office_dict = array_flip($this->office_dict);
                 $constructs = Constructor::where("office", "like","%".$office_dict[$user_office_id]."%")->orderBy("created_at", "desc")->paginate(20);
-                return view("construct.index", compact("constructs", "offices"));
+                return view("construct.index", compact("constructs", "offices", "page"));
             }
         }
-        return view("construct.index", compact("constructs", "offices"));
+
+        return view("construct.index", compact("constructs", "offices", "page"));
+    }
+
+    public function excel_download($page):BinaryFileResponse
+    {
+        return Excel::download(new ConstructsExport($page), "test.xlsx");
+    }
+
+    public function detail_excel_download($construct_id):BinaryFileResponse
+    {
+        return Excel::download(new ImageExport($construct_id), "detail.xlsx");
     }
 
     public function create()
@@ -60,9 +77,9 @@ class ConstructorController extends Controller
         if ($office_name != "無し") {
             $fields = $this->create_fields($office_name);
         }
-
+        $googlemapURL = "https://www.google.com/maps?output=embed&q=".$form_items['coordinate'] ?? $form_items['location'];
         $route_name = $this->processing_route_name($form_items);
-        $data = Constructor::create(["location" => $form_items["location"], "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
+        $data = Constructor::create(["location" => $form_items["location"], "google_map_url" => $googlemapURL, "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
         => $form_items["bus_station"], "news" => $form_items["news"], "inworking_start_time" => $form_items["inworking_start_time"], "inworking_end_time" => $form_items["inworking_end_time"],"notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
             $form_items["end"]]);
         if ($fields != []) {
@@ -95,7 +112,8 @@ class ConstructorController extends Controller
 //        if ($fields != []) {
 //            $this->send_target($fields, $form_items["location"] . "が更新されました。", $construct_id);
 //        }
-        Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"], "inworking_start_time"=>$form_items["inworking_start_time"],"inworking_end_time"=>$form_items["inworking_end_time"],  "news" => $form_items["news"],"location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
+        $googlemapURL = "https://www.google.com/maps?output=embed&q=".$form_items['coordinate'] ?? $form_items['location'];
+        Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"], "google_map_url" => $googlemapURL, "inworking_start_time"=>$form_items["inworking_start_time"],"inworking_end_time"=>$form_items["inworking_end_time"],  "news" => $form_items["news"],"location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
     }
 
