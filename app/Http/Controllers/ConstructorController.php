@@ -53,12 +53,12 @@ class ConstructorController extends Controller
 
     public function excel_download($page):BinaryFileResponse
     {
-        return Excel::download(new ConstructsExport($page), "test.xlsx");
+        return Excel::download(new ConstructsExport($page), "excel.xlsx");
     }
 
     public function detail_excel_download($construct_id):BinaryFileResponse
     {
-        return Excel::download(new ImageExport($construct_id), "detail.xlsx");
+        return Excel::download(new ImageExport($construct_id), "excel_detail.xlsx");
     }
 
     public function create()
@@ -106,12 +106,12 @@ class ConstructorController extends Controller
         $offices = $this->processing_office_name($form_items) === "" ? "無し" : $this->processing_office_name($form_items);
         $exists_office = $this->is_exists_office(array_keys($form_items));
 
-//        if ($exists_office) {
-//            $fields = $this->create_fields($offices);
-//        }
-//        if ($fields != []) {
-//            $this->send_target($fields, $form_items["location"] . "が更新されました。", $construct_id);
-//        }
+        if ($exists_office) {
+            $fields = $this->create_fields($offices);
+        }
+        if ($fields != []) {
+            $this->send_target($fields, $form_items["location"] . "が更新されました。", $construct_id);
+        }
         $googlemapURL = "https://www.google.com/maps?output=embed&q=".$form_items['coordinate'] ?? $form_items['location'];
         Constructor::where("id", $construct_id)->update(["remarks" => $form_items["remarks"], "google_map_url" => $googlemapURL, "inworking_start_time"=>$form_items["inworking_start_time"],"inworking_end_time"=>$form_items["inworking_end_time"],  "news" => $form_items["news"],"location" => $form_items["location"], "notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "office" => $offices, "real_work_time" => $form_items["real_work"] ?? "", "detail" => $form_items["detail"], "started_at" => $form_items["started_at"], "ended_at" => $form_items["ended_at"]]);
         return redirect("/construct/edit/" . $construct_id);
