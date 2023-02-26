@@ -44,7 +44,7 @@
             <label for="coordinate">座標</label>
             <input type="text" class="form-control" id="coordinate" value="{{old("coordinate")}}"
                    aria-describedby="construct-coordinate"
-                   placeholder="入力例：35.8076097,139.9349548" name="coordinate" >
+                   placeholder="入力例：35.8076097,139.9349548" name="coordinate">
         </div>
 
         <div class="form-group m-3">
@@ -138,8 +138,21 @@
             </div>
         </div>
         <div class="form-group m-3 row">
+            <div class="col">
+                <label for="ended_at">工事開始時間</label>
+                <input type="time" class="form-control" id="ended_at" value="{{old("end")}}"
+                       aria-describedby="construct-end" name="inworking_start_time">
+            </div>
+            <div class="col">
+                <label for="ended_at">工事終了時間</label>
+                <input type="time" class="form-control" id="ended_at" value="{{old("end")}}"
+                       aria-describedby="construct-end" name="inworking_end_time">
+            </div>
+        </div>
+        <div class="form-group m-3 row">
             <label for="notify_time">リマインド期間</label>
-            <input type="number" value="{{old("notify_time")}}" min="0" max="365" class="form-control" id="notify_time" aria-describedby="construct-notify_time"
+            <input type="number" value="{{old("notify_time")}}" min="0" max="365" class="form-control" id="notify_time"
+                   aria-describedby="construct-notify_time"
                    name="notify_time">
         </div>
         <div class="form-group" style="text-align:right; margin-right: 40px; margin-top: 30px;">
