@@ -111,7 +111,7 @@
             <label for="news">お知らせ</label>
             <input type="text" class="form-control items" id="news" value="{{old("news")}}"
                    aria-describedby="news"
-                   placeholder="お知らせ" name="news" required>
+                   placeholder="お知らせ" name="news">
         </div>
         <div class="form-group m-3 row">
             <label for="remarks">備考</label>
