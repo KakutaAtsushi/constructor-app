@@ -107,9 +107,9 @@
             <button type="button" onClick="onAllCheck()" id="onChecked" class="btn btn-danger btn-sm mt-4">全営業所をチェックする
             </button>
         </div>
-        <div class="form-group m-3" id="items">
+        <div class="form-group m-3">
             <label for="news">お知らせ</label>
-            <input type="text" class="form-control items" id="news" value="{{old("news")}}"
+            <input type="text" class="form-control" id="news" value="{{old("news")}}"
                    aria-describedby="news"
                    placeholder="お知らせ" name="news">
         </div>
