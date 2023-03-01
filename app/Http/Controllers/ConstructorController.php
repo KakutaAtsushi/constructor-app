@@ -77,7 +77,7 @@ class ConstructorController extends Controller
         if ($office_name != "無し") {
             $fields = $this->create_fields($office_name);
         }
-        $googlemapURL = "https://www.google.com/maps?output=embed&q=".$form_items['coordinate'] ?? $form_items['location'];
+        $googlemapURL = "https://www.google.co.jp/maps/@".$form_items['coordinate']."19.25z?hl=ja" ?? $form_items['location']."19.25z?hl=ja";
         $route_name = $this->processing_route_name($form_items);
         $data = Constructor::create(["location" => $form_items["location"], "google_map_url" => $googlemapURL, "username" => $form_items["username"], "department" => $form_items["department"], "business_name" => $form_items["business_name"], "route" => $route_name, "real_work_time" => $form_items["real_work"], "bus_station"
         => $form_items["bus_station"], "news" => $form_items["news"], "inworking_start_time" => $form_items["inworking_start_time"], "inworking_end_time" => $form_items["inworking_end_time"],"notify_time" => $form_items["notify_time"], "coordinate" => $form_items["coordinate"], "stopped_bus_flag" => $form_items["stopped_bus"] ?? 0, "detour_flag" => $form_items["detour"] ?? 0, "bus_relocation_flag" => $form_items["relocation_bus"] ?? 0, "remarks" => $form_items["remarks"], "flag" => 0, "office" => $office_name ?: "無し", "detail" => $form_items["detail"], "started_at" => $form_items["start"], "ended_at" =>
