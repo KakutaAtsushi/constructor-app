@@ -10,7 +10,7 @@
         </a>
     </div>
     <form method="POST" action="{{route("construct.update")}}">
-        <a href="{{ route('constructs.excel.detail.download', ["construct_id" => $construct_data->id])}}" style="padding:10px">Excel出力</a>
+        <a href="{{ route('constructs.excel.detail.download', ["construct_id" => $construct_data->id])}}" style="padding:10px">点呼場用</a>
         @csrf
         <input type="hidden" value="{{$construct_data->id}}" name="construct_id">
         <div class="form-group m-3">

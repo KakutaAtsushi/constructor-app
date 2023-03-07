@@ -18,7 +18,7 @@
         @endif
     </div>
     <div class="create">
-        <a href="{{ route('constructs.excel.index.download', ["page" => $page])}}" style="padding: 10px">点呼場用</a>
+        <a href="{{ route('constructs.excel.index.download', ["page" => $page])}}" style="padding: 10px">Excel出力</a>
 
         <a href="{{route("construct.create")}}">
             <button type="button" class="btn btn-outline-success">+ 新規作成</button>
