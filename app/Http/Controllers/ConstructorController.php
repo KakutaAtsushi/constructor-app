@@ -79,7 +79,7 @@ class ConstructorController extends Controller
         $fields = [];
         $office_name = $this->processing_office_name($form_items);
 
-        if ($office_name != "無し") {
+        if ($office_name != "") {
             $fields = $this->create_fields($office_name);
         }
         $googlemapURL = "https://www.google.com/maps?q=".$form_items['coordinate'] ?? "https://www.google.com/maps?q=".$form_items['location'];
