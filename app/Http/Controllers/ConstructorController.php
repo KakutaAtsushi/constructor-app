@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AllEditExport;
 use App\Exports\ConstructsExport;
 use App\Exports\ImageExport;
 use App\Models\Constructor;
@@ -56,11 +57,15 @@ class ConstructorController extends Controller
         return Excel::download(new ConstructsExport($page), "excel.xlsx");
     }
 
-    public function detail_excel_download($construct_id):BinaryFileResponse
+    public function detail_all_excel_download($construct_id):BinaryFileResponse
     {
-        return Excel::download(new ImageExport($construct_id), "excel_detail.xlsx");
+        return Excel::download(new ImageExport($construct_id), "excel_all_detail.xlsx");
     }
 
+    public function detail_excel_download($construct_id):BinaryFileResponse
+    {
+        return Excel::download(new AllEditExport($construct_id), "excel_detail.xlsx");
+    }
     public function create()
     {
         $offices = config("env");

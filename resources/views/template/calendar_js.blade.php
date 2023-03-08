@@ -7,7 +7,7 @@
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'dayGridMonth'
+                right: ''
             },
             navLinks: true,
             businessHours: true,

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get("/construct/excel/detail/download/{construct_id}", "ConstructorController@detail_excel_download")->name("constructs.excel.detail.download");
+Route::get("/construct/excel/all/detail/download/{construct_id}", "ConstructorController@detail_all_excel_download")->name("constructs.excel.detail.all.download");
 Route::get("/construct/excel/index/download/{page}", "ConstructorController@excel_download")->name("constructs.excel.index.download");
 
 Route::get("/construct", "ConstructorController@index")->name("construct");
